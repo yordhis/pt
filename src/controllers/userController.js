@@ -12,7 +12,7 @@ exports.getAllUsers = async ( req, res ) => {
 
     const data = await userService.getAll()
     res.status(200).json({
-        message: "obteniendo todos los usuarios",
+        message: 'obteniendo todos los usuarios',
         data
     })
 }
@@ -27,7 +27,7 @@ exports.getUser = async ( req, res ) => {
 
     /** Realizando peticion a nuestro servicio UserService */
     const data = await userService.filterById(req.params.id) 
-    const message = data != null ? data : "Usuario no existe"
+    const message = data != null ? data : 'Usuario no existe'
     const status = data != null ? 200 : 404
   
 
@@ -41,7 +41,7 @@ exports.createUser = async ( req, res ) => {
         let data = req.body
         await userService.create(data)
         /** respuesta */
-        res.status(201).json({message: "Usuario registrado"})
+        res.status(201).json({message: 'Usuario registrado'})
     } catch (error) {
         res.status(500).json({message: error.message})
 
@@ -53,13 +53,13 @@ exports.updateUser = async (req, res) => {
     try {
         const { id } = req.params
         const data = req.body
-        console.log( "Id de usuario a editar: " + id );
+        console.log( 'Id de usuario a editar: ' + id )
 
         /** Obtenemos los datos del usuario */
         let user = await userService.filterById(req.params.id) 
 
         /** Validamos que usuario exista */
-        if(!user) return res.status(404).json({message: "Usuario no existe"})
+        if(!user) return res.status(404).json({message: 'Usuario no existe'})
 
         /** Realizamos la actualizacion de datos si el usuario existe */
         await userService.update(id, data)
@@ -68,7 +68,7 @@ exports.updateUser = async (req, res) => {
         user = await userService.filterById(req.params.id)  
 
         /** respuesta */
-        res.status(200).json({message: "Datos Actualizandos con exito", user})
+        res.status(200).json({message: 'Datos Actualizandos con exito', user})
 
     } catch (error) {
         /** respuesta */
@@ -79,17 +79,17 @@ exports.updateUser = async (req, res) => {
 /** Método que elimina un usuario */
 exports.deleteUser = async (req, res) => {
     const { id } = req.params
-    console.log( "Id de usuario a eliminar: " + id );
+    console.log( 'Id de usuario a eliminar: ' + id )
     /** Obtenemos los datos del usuario */
     let user = await userService.filterById(req.params.id) 
 
     /** Validamos que usuario exista */
-    if(!user) return res.status(404).json({message: "Usuario no existe"})
+    if(!user) return res.status(404).json({message: 'Usuario no existe'})
 
     /** Realizamos la accion de eliminar */
     await userService.delete(id)
 
     /** respuesta */
-    res.status(200).json({message: "Usuario eliminado correctamente"})
+    res.status(200).json({message: 'Usuario eliminado correctamente'})
 }
 
