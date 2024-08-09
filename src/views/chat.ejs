@@ -61,10 +61,11 @@
 
         btnSendMessage.addEventListener('click', (e) => {
             /** Limpiamos la alerta de escribiendo*/
-             showWriting.innerHTML = ""
+            //  showWriting.innerHTML = ""
+             console.log(message.value.trim());
              
              /** Validamos que no envie un dato vacio */
-             if(e.target.value.trim() == "") return alert('Ingrese un mensaje por favor')
+             if(message.value.trim() == "") return alert('Ingrese un mensaje por favor')
 
             /** El cliente envia el mensaje con el boton de enviar */
             socket.emit('add-message', { username:user.value || 'Anónimo', message:message.value })
@@ -76,7 +77,7 @@
             /** Envia con enter key */
             if(e.key.toUpperCase() == "ENTER"){
                 if(e.target.value.trim() == "") return alert('Ingrese un mensaje por favor')
-                console.log(e.target.value)
+
                 showWriting.innerHTML = ""
                 socket.emit('add-message', { username:user.value || 'Anónimo', message:message.value })
                 message.value = ""
@@ -110,7 +111,7 @@
             content.innerHTML += messageContainer(messages)
             setTimeout(() => {
                 content.scrollTop = content.scrollHeight
-            }, 1000)
+            }, 500)
         })
 
         
@@ -141,7 +142,7 @@
 
             setTimeout(() =>{
                 showWriting.innerHTML = ""
-            },3000)
+            },1500)
         })
 
         /** funciones */
