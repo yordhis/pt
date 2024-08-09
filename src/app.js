@@ -7,6 +7,8 @@ const morgan = require('morgan')
 const socket = require('socket.io')
 const path = require('path')
 const expressSession = require('express-session') 
+require('dotenv').config()
+
 
 /** Importando los middleware personalizados */
 const userLogged = require('./middlewares/userLogged')

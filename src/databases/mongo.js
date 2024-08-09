@@ -1,7 +1,22 @@
 const mongoose = require('mongoose')
-const  db = require('../config')
+const  { mongodb, mongodbsrv } = require('../config')
+require('dotenv').config()
+let connectionStringConfig = ""
 
-const connection = mongoose.connect(`mongodb://${db.host}:${db.port}/${db.database}`)
+console.log(!process.env.APP_DEBUG);
+
+/** 
+ * Validamos si esta en desarollo o producción para conectarnos a la DB de la nube
+ * @value true -> esta en desarrollo o local
+ * @value false -> esta en producción
+*/
+if(true){
+    connectionStringConfig = `mongodb://${mongodbsrv.user}:${mongodbsrv.password}@${mongodbsrv.host}:${mongodbsrv.port}`
+}else{
+    connectionStringConfig = `mongodb://${mongodb.host}:${mongodb.port}/${mongodb.database}`
+}
+console.log(connectionStringConfig);
+const connection = mongoose.connect(connectionStringConfig)
 .then(res =>{
     console.log('Conexion exitosa')
 }).catch(err =>{
