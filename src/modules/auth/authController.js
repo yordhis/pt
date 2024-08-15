@@ -1,4 +1,4 @@
-const AuthService = require('../services/authService')
+const AuthService = require('./authService')
 const authService = new AuthService()
 const bcrypt = require('bcrypt')
 

@@ -9,7 +9,7 @@ let connectionStringConfig = ''
  * @value false -> esta en producción
 */
 // eslint-disable-next-line no-undef
-if(process.env.APP_DEBUG === true){
+if(process.env.APP_DEBUG){
     console.log('Se cargo la conexion a la db local')
     connectionStringConfig = `mongodb://${mongodb.host}:${mongodb.port}/${mongodb.database}`
 }else{

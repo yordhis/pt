@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 exports.verifyToken = (req, res, next) => {
-
+    
     /** Obtenemos el token */
     const authorization = req.headers.authorization
 
@@ -17,7 +17,8 @@ exports.verifyToken = (req, res, next) => {
          * Desencriptamos el token y los almacenamos en 
          * @var req.user 
          */
-        req.user = jwt.verify(token, 'secret-key')
+        // eslint-disable-next-line no-undef
+        req.user = jwt.verify(token, app.get('secret_key'))
         next()
     } catch (error) {
         return res.status(401).json({ message: error.message })

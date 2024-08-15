@@ -1,4 +1,5 @@
-const UserAuth = require("../models/authModel")
+
+const UserAuth = require('./authModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -22,7 +23,8 @@ class AuthService{
     }
 
     async genrateToken(payload){
-        const token =  await jwt.sign(payload, 'secret-key')
+        // eslint-disable-next-line no-undef
+        const token =  await jwt.sign(payload, app.get('secret'))
         return token
     }
 }
