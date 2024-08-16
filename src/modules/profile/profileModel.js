@@ -9,6 +9,6 @@ const ProfileSchema = new Schema({
     userId: String
 })
 
-const Profile = mongoose.model('User', ProfileSchema)
+const Profile = mongoose.model('Profile', ProfileSchema)
 
 module.exports = Profile
