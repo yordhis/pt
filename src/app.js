@@ -12,13 +12,9 @@ require('dotenv').config()
 app.set('port', process.env.APP_PORT)
 app.set('host', process.env.APP_HOST)
 app.set('app_name', process.env.APP_NAME)
-app.set('secret_key', process.env.APP_SECRET_KEY)
 
 /** Importamos la conexion a la base de datos */
 const connection = require('./databases/mongo')
-
-/** Importando los middleware personalizados */
-const verifyToken = require('./middlewares/verifyToken')
 
 /** Importamos todas las rutas */
 const routers = require('./routers/routers')
