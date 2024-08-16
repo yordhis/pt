@@ -1,28 +1,26 @@
-const UserAuth = require("../models/authModel")
+
+const UserAuth = require('./authModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 class AuthService{
     constructor(){}
 
     async register(data){
-        /** 
-         * Primero se encripta la contraseña
-         * con el @pack bcrypt @method hashSync (clave, saltos_paraencriptar)
-         */
         data.password = bcrypt.hashSync(data.password, 10)
-   
         const userAuth = new UserAuth(data)
         return await userAuth.save()
     }
 
-    async filterByEmail(email){
-        const data = await UserAuth.findOne({ email })
+    async filterByUsername(username){
+        const data = await UserAuth.findOne({ username })
         return data
     }
 
     async genrateToken(payload){
-        const token =  await jwt.sign(payload, 'secret-key')
+        // eslint-disable-next-line no-undef
+        const token =  await jwt.sign(payload, process.env.APP_SECRET_KEY)
         return token
     }
 }

@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const UserAuthSchema = new Schema({
-    email: String,
-    password: String
+    username: String,
+    password: String,
+    rol: String
 })
 
 const UserAuth = mongoose.model('UserAuth', UserAuthSchema)
