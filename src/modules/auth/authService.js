@@ -18,11 +18,17 @@ class AuthService{
         return data
     }
 
+    async filterByEmail(email){
+        const data = await UserAuth.findOne({ email })
+        return data
+    }
+
     async genrateToken(payload){
         // eslint-disable-next-line no-undef
-        const token =  await jwt.sign(payload, process.env.APP_SECRET_KEY)
+        const token =  await jwt.sign(payload, process.env.APP_SECRET_KEY, { expiresIn: '1h' })
         return token
     }
+
 }
 
 module.exports = AuthService

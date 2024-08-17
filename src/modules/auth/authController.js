@@ -13,19 +13,25 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const { username, password } = req.body
+        const { username, password, email } = req.body
 
         /** Obtenemos los datos del usuario */
-        const user = await authService.filterByUsername(username)
+        let user = await authService.filterByUsername(username)
         /** Validamos que el correo este registrado y */
-        if (!user) return res.status(401).json({ message: 'Email no existe', status: 401 })
+        if ( !user ) {
+            user = await authService.filterByEmail( email )
+            if( !user ) return res.status(401).json({ message: 'Usuario o email invalidos', status: 401 })
+        }
 
         /** validamos la contraseña */
         const passwordMatch = bcrypt.compareSync(password, user.password)
         if (!passwordMatch) return res.status(401).json({ message: 'Contraseña invalida!', status: 401 })
 
         /** Configuramos el payload  */
-        const payload = { username: user.username, rol: user.rol }
+        const payload = { 
+            username: user.username, 
+            email: user.email, 
+            rol: user.rol }
 
         /** Generamos el token */
         const token = await authService.genrateToken(payload)
@@ -38,15 +44,5 @@ exports.login = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message, status: 500 })
     }
-
-
 }
 
-exports.logout = (req, res) => {
-    try {
-        return res.json(req.body)
-    } catch (error) {
-        res.status(500).json({ message: `Error del servicodor. Error: ${error.message}`, status: 500 })
-    }
-
-}

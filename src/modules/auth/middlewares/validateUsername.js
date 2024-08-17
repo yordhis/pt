@@ -7,7 +7,7 @@ const validateUsername = async (req, res, next) => {
     let usernameFind = await authService.filterByUsername( req.body.username )
     console.log(usernameFind)
     if(usernameFind){
-        return res.status(400).json({ messaje: 'El email ya esta registrado', status: 400 })
+        return res.status(400).json({ messaje: 'El usuario ya existe.', status: 400 })
     }else{
         next()
     }
