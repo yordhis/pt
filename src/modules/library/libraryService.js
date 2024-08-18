@@ -1,4 +1,6 @@
 const Library = require('./libraryModel')
+const libraryAllAdapter = require('./adapters/libraryAllAdapter')
+const librarySingleAdapter = require('./adapters/librarySingleAdapter')
 
 class LibraryService {
 
@@ -8,19 +10,19 @@ class LibraryService {
     }
 
     async all(){
-        return await Library.find({})
+        return await libraryAllAdapter( await Library.find({}) )
     }
 
     async filterById( id ){
-        return await Library.findOne({ _id: id })
+        return await librarySingleAdapter( await Library.findOne({ _id: id }) )
     }
     
     async filterByIdTheme( idTheme ){
-        return await Library.find({ idTheme })
+        return await libraryAllAdapter( await Library.find({ idTheme }) )
     }
 
-    async filterByName( title ){
-        return await Library.find({ title })
+    async filterByTitle( title ){
+        return await librarySingleAdapter( await Library.findOne({ title }) )
     }
     
     async update( id, data ){

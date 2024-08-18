@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const ThemeSchema = new Schema({
     name: String,
     contentPermission: Array,
-    status: String
+    status: Number
 })
 
 const Theme = mongoose.model('Theme', ThemeSchema)
