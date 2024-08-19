@@ -7,9 +7,12 @@ const themeRouter = require('../modules/theme/themeRouter')
 const rolRouter = require('../modules/rol/rolRouter')
 const libraryRouter = require('../modules/library/libraryRouter')
 const verifyToken = require('../middlewares/verifyToken')
+const veirifyPermissionOfRequestUser = require('../middlewares/verifyPermissionOfRequestUser')
 
 const permissionOfUser = [
-    verifyToken
+    verifyToken,
+    veirifyPermissionOfRequestUser
+
 ]
 
 router.use('/api/auth', authRouter)
