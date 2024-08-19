@@ -6,16 +6,21 @@ const contentCategoryRouter = require('../modules/contentCategory/contentCategor
 const themeRouter = require('../modules/theme/themeRouter')
 const rolRouter = require('../modules/rol/rolRouter')
 const libraryRouter = require('../modules/library/libraryRouter')
+const verifyToken = require('../middlewares/verifyToken')
 
+const permissionOfUser = [
+    verifyToken
+]
 
 router.use('/api/auth', authRouter)
 
-router.use('/api/rols', rolRouter)
-router.use('/api/themes', themeRouter)
-router.use('/api/categories', contentCategoryRouter)
-router.use('/api/profiles', profileRouter)
-router.use('/api/libraries', libraryRouter)
 
-// const verifyToken = require('../middlewares/verifyToken')
+
+router.use('/api/rols', permissionOfUser, rolRouter)
+router.use('/api/themes', permissionOfUser, themeRouter)
+router.use('/api/categories', permissionOfUser, contentCategoryRouter)
+router.use('/api/profiles', permissionOfUser, profileRouter)
+router.use('/api/libraries', permissionOfUser, libraryRouter)
+
 
 module.exports = router

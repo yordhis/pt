@@ -1,28 +1,36 @@
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
-exports.verifyToken = (req, res, next) => {
-    
-    /** Obtenemos el token */
-    const authorization = req.headers.authorization
 
-    /** Validamos que exista el token */
-    if(!authorization) return res.status(400).json({ message:'Token no enviado' })
-    
-        
+const verifyToken = (req, res, next) => {
     try {
-        /** Se obtienen el token en limpio */
+        const authorization = req.headers.authorization
+        
+        if(!authorization) {
+            const payloadAnonimo = {
+                username: 'anonimo',
+                rol: 'readertxt'
+            }
+            /** Generamos un token de solo lectura de texto anonimo */
+            const token = jwt.sign(payloadAnonimo, process.env.APP_SECRET_KEY, 'h1')
+            req.token = token
+            req.user = payloadAnonimo
+            console.log(req.token)
+            console.log(req.user)
+            
+            next()
+        }
+            
         const token = authorization.split(' ')[1]
+        const payload = jwt.verify(token, process.env.APP_SECRET_KEY)
+        req.user = payload
 
-        /** 
-         * Desencriptamos el token y los almacenamos en 
-         * @var req.user 
-         */
-        // eslint-disable-next-line no-undef
-        req.user = jwt.verify(token, app.get('secret_key'))
         next()
     } catch (error) {
         return res.status(401).json({ message: error.message })
     }
 
 }
+
+module.exports = verifyToken
 

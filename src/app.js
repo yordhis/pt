@@ -6,6 +6,7 @@ const app = express()
 const morgan = require('morgan')
 const socket = require('socket.io')
 const path = require('path')
+
 require('dotenv').config()
 
 /** configuracion de la app */
