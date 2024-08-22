@@ -1,15 +1,34 @@
 const express = require('express')
 const { register, login } = require('./authController')
-const validateUsername = require('./middlewares/validateUsername')
-const validateRolRegister = require('./middlewares/validateRolRegister')
-const validateRolRegisterAdmin = require('./middlewares/validateRolRegisterAdmin')
-const validateEmail = require('./middlewares/validateEmail')
+const validateUsername = require('./middlewares/register/validateUsername')
+const validateRolRegister = require('./middlewares/register/validateRolRegister')
+const validateRolRegisterAdmin = require('./middlewares/register/validateRolRegisterAdmin')
+const validateEmail = require('./middlewares/register/validateEmail')
+const validateExistUser = require('./middlewares/login/validateExistUser')
+const validatePassword = require('./middlewares/login/validatePassword')
 const router = express.Router()
 
+const middRegister = [
+    validateRolRegister,
+    validateUsername, 
+    validateEmail
+]
 
-router.post('/register', [ validateUsername, validateEmail, validateRolRegister ], register)
-router.post('/registerAdmin', [ validateUsername, validateEmail, validateRolRegisterAdmin ], register)
-router.post('/login', login)
+const middRegisterAdmin = [
+    validateRolRegisterAdmin,
+    validateUsername, 
+    validateEmail 
+]
+
+const middLogin = [
+    validateExistUser,
+    validatePassword
+]
+
+
+router.post('/register', middRegister , register)
+router.post('/registerAdmin', middRegisterAdmin , register)
+router.post('/login', middLogin, login)
 
 
 module.exports = router

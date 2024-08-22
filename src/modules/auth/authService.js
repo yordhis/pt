@@ -1,8 +1,9 @@
 
-const UserAuth = require('./authModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+const userAdapter = require('./adapters/userAdapter')
+const UserAuth = require('./authModel')
 
 class AuthService{
     constructor(){}
@@ -15,12 +16,12 @@ class AuthService{
 
     async filterByUsername(username){
         const data = await UserAuth.findOne({ username })
-        return data
+        return await userAdapter( data )
     }
 
     async filterByEmail(email){
         const data = await UserAuth.findOne({ email })
-        return data
+        return await userAdapter( data )
     }
 
     async genrateToken(payload){

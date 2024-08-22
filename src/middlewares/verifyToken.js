@@ -21,7 +21,6 @@ const verifyToken = (req, res, next) => {
             const token = authorization.split(' ')[1]
             const payload = jwt.verify(token, process.env.APP_SECRET_KEY)
             req.user = payload
-    
         }
         
         next()

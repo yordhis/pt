@@ -3,7 +3,8 @@ const Schema = mongoose.Schema
 
 const RolSchema = new Schema({
     name: String,
-    permissions: Array
+    permissions: Array,
+    modules: Array
 })
 
 const Rol = mongoose.model('Rol', RolSchema)

@@ -12,7 +12,6 @@ const veirifyPermissionOfRequestUser = require('../middlewares/verifyPermissionO
 const permissionOfUser = [
     verifyToken,
     veirifyPermissionOfRequestUser
-
 ]
 
 router.use('/api/auth', authRouter)
