@@ -20,7 +20,7 @@ const veirifyPermissionOfRequestUser = async (req, res, next) => {
         res.status(401).json({ message: 'Acceso denegado, el rol que poseé no existe.'})
 
     } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+        res.status(500).json({ message: 'file:verifyPermission... error: ' + error.message, status: 500 })
     }
 
 

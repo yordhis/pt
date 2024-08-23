@@ -3,6 +3,9 @@ const libraryAllAdapter = require('./adapters/libraryAllAdapter')
 const librarySingleAdapter = require('./adapters/librarySingleAdapter')
 
 class LibraryService {
+    constructor(user){
+        this.user = user
+    }
 
     async register( data ){
         const library = new Library( data )
@@ -11,22 +14,22 @@ class LibraryService {
 
     async all(){
         const data = await Library.find({}) 
-        return await libraryAllAdapter( data )
+        return await libraryAllAdapter( data, this.user )
     }
 
     async filterById( id ){
         const data = await Library.findOne({ _id: id })
-        return await librarySingleAdapter( data )
+        return await librarySingleAdapter( data, this.user )
     }
     
     async filterByIdTheme( idTheme ){
         const data = await Library.find({ idTheme })
-        return await libraryAllAdapter( data )
+        return await libraryAllAdapter( data, this.user )
     }
 
     async filterByTitle( title ){
         const data = await Library.findOne({ title })
-        return await librarySingleAdapter( data )
+        return await librarySingleAdapter( data, this.user )
     }
     
     async update( id, data ){

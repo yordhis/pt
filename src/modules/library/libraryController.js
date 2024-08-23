@@ -1,5 +1,4 @@
 const LibraryService = require('./libraryService')
-const libraryService = new LibraryService()
 
 exports.register = async ( req, res ) => {
     try {
@@ -13,7 +12,9 @@ exports.register = async ( req, res ) => {
 exports.all = async ( req, res ) => {
     try {
         const user = req.user
-        const data = await libraryService.all( user )
+        const libraryService = new LibraryService(user)
+
+        const data = await libraryService.all()
         res.status(200).json({ message: 'Ok', status: 200, data })
     } catch (error) {
         res.status(500).json({ message: error.message, status: 500 })
@@ -22,7 +23,8 @@ exports.all = async ( req, res ) => {
 
 exports.filterById = async ( req, res ) => {
     try {
-        const data = await libraryService.filterById( req.params.id )
+        const user = req.user
+        const data = await libraryService.filterById( req.params.id, user )
         res.status(200).json({ message: 'Ok', status: 200, data })
     } catch (error) {
         res.status(500).json({ message: error.message, status: 500 })
@@ -31,6 +33,7 @@ exports.filterById = async ( req, res ) => {
 
 exports.filterByIdTheme = async ( req, res ) => {
     try {
+        const user = req.user
         const data = await libraryService.filterByIdTheme( req.params.id )
         res.status(200).json({ message: 'Ok', status: 200, data })
     } catch (error) {
