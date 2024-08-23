@@ -7,7 +7,8 @@ const LibrarySchema = new Schema({
     description: String,
     links: Object,
     views: Number,
-    author: String
+    author: String,
+    credit: String
 })
 
 const Library = mongoose.model('Library', LibrarySchema)

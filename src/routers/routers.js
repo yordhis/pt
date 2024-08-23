@@ -16,8 +16,6 @@ const permissionOfUser = [
 
 router.use('/api/auth', authRouter)
 
-
-
 router.use('/api/rols', permissionOfUser, rolRouter)
 router.use('/api/themes', permissionOfUser, themeRouter)
 router.use('/api/categories', permissionOfUser, contentCategoryRouter)

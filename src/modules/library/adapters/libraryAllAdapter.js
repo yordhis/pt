@@ -14,7 +14,8 @@ const libraryAdapter = async (datas) => {
       description: data.description,
       links: data.links,
       views: data.views,
-      author: data.author
+      author: data.author,
+      credit: data.credit,
     })
   }
 

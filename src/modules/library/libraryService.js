@@ -10,19 +10,23 @@ class LibraryService {
     }
 
     async all(){
-        return await libraryAllAdapter( await Library.find({}) )
+        const data = await Library.find({}) 
+        return await libraryAllAdapter( data )
     }
 
     async filterById( id ){
-        return await librarySingleAdapter( await Library.findOne({ _id: id }) )
+        const data = await Library.findOne({ _id: id })
+        return await librarySingleAdapter( data )
     }
     
     async filterByIdTheme( idTheme ){
-        return await libraryAllAdapter( await Library.find({ idTheme }) )
+        const data = await Library.find({ idTheme })
+        return await libraryAllAdapter( data )
     }
 
     async filterByTitle( title ){
-        return await librarySingleAdapter( await Library.findOne({ title }) )
+        const data = await Library.findOne({ title })
+        return await librarySingleAdapter( data )
     }
     
     async update( id, data ){

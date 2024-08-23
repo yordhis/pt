@@ -12,7 +12,8 @@ exports.register = async ( req, res ) => {
 
 exports.all = async ( req, res ) => {
     try {
-        const data = await libraryService.all()
+        const user = req.user
+        const data = await libraryService.all( user )
         res.status(200).json({ message: 'Ok', status: 200, data })
     } catch (error) {
         res.status(500).json({ message: error.message, status: 500 })
