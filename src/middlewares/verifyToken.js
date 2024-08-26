@@ -22,7 +22,7 @@ const verifyToken = (req, res, next) => {
             const payload = jwt.verify(token, process.env.APP_SECRET_KEY)
             req.user = payload
         }
-        
+                
         next()
     } catch (error) {
         return res.status(401).json({ message: `Token invalido. Error: ${error.message}.`, status: 401 })

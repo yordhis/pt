@@ -11,8 +11,9 @@ const veirifyPermissionOfRequestUser = async (req, res, next) => {
 
         for (const rol of allRols) {
             if (user.rol == rol.name) {
-                if (!rol.modules.includes( pathname )) return res.status(401).json({ message: 'Acceso denegado a este módulo.', status: 401 })
-                if (!rol.permissions.includes( method )) return res.status(401).json({ message: 'Acción denegada, no tiene permisos para ejecutar esta solicitud.', status: 401 })
+                if ( !rol.modules.includes( pathname ) ) return res.status(401).json({ message: 'Acceso denegado a este módulo.', status: 401 })
+                if ( pathname == 'profiles' ) return next()
+                if ( !rol.permissions.includes( method ) ) return res.status(401).json({ message: 'Acción denegada, no tiene permisos para ejecutar esta solicitud.', status: 401 })
                 return next()
             }
         }
