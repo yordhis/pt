@@ -6,22 +6,22 @@ class ProfileService{
     /** Inicializamos el constructor vacio */
     constructor(){}
 
-    async filterById(id){
-        const profile = await Profile.findOne({userId:id})
+    async filterById( userId ){
+        const profile = await Profile.findOne({ userId })
         return profile
     }
 
-    async create(data){
+    async create( data ){
         const profile = new Profile(data)
         return await profile.save()
     }
 
-    async update(id, data){
-        return await Profile.findByIdAndUpdate({_id:id}, data)
+    async update( userId , data ){
+        return await Profile.findOneAndUpdate({ userId: userId }, data)
     }
 
-    async delete(id){
-        return await Profile.deleteOne({_id:id})
+    async delete( userId ){
+        return await Profile.deleteOne({ userId })
     }
    
 }

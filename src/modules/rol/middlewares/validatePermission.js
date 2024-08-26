@@ -1,7 +1,7 @@
 
 const validatePermission = ( req, res, next ) => {
     try {
-        const arrayPermissionStatic = ['create', 'read', 'update', 'delete']
+        const arrayPermissionStatic = ['GET', 'POST', 'PUT', 'DELETE']
         const { permissions } = req.body
         for (let i = 0; i < permissions.length; i++) {
             const permission = permissions[i]
