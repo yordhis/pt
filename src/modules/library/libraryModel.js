@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const LibrarySchema = new Schema({
-    idTheme: String,
+    theme: String,
     title: String,
     description: String,
     links: Object,

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 require('dotenv').config()
 
-const btnAdapter = ( user, data) => {
+const btnAdapter = ( data, user) => {
     try {
         const baseUrl = process.env.APP_URL_API
         let buttons = {}

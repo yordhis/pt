@@ -31,6 +31,11 @@ class LibraryService {
         const data = await Library.findOne({ title })
         return await librarySingleAdapter( data, this.user )
     }
+
+    async filterByTitleAndByTheme( title, theme ){
+        const data = await Library.findOne({ title, theme })
+        return await librarySingleAdapter( data, this.user )
+    }
     
     async update( id, data ){
         return await Library.findByIdAndUpdate({ _id: id }, data )
