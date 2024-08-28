@@ -4,7 +4,7 @@
   "description": "curso-express-ed.team",
   "main": "app.js",
   "scripts": {
-    "test": "node --test --watch test",
+    "test": "mocha",
     "dev": "nodemon src/app.js",
     "start": "node src/app.js"
   },
@@ -21,9 +21,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "chai": "^4.5.0",
+    "chai-http": "^4.4.0",
     "eslint": "^9.9.0",
     "globals": "^15.9.0",
-    "nodemon": "^3.1.4",
-    "supertest": "^7.0.0"
+    "mocha": "^10.7.3",
+    "nodemon": "^3.1.4"
   }
 }

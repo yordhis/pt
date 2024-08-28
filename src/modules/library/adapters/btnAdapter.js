@@ -6,7 +6,7 @@ const btnAdapter = ( data, user) => {
         const baseUrl = process.env.APP_URL_API
         let buttons = {}
         
-        if(user.permissions){
+        if(user.permissions.length){
             for (const permission of user.permissions) {
                 if(permission != 'POST'){
                     buttons[permission.toLowerCase()] = {

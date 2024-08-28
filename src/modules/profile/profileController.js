@@ -20,7 +20,8 @@ exports.createProfile = async ( req, res ) => {
     try {
         const data = req.body
         const user = req.user
-        data.userId = user.id
+        if( user.rol == 'readertxt' ) return res.status(401).json({ message: 'El usuario no esta registrado para crear su perfil, debe registrarse', status:401 })
+        data.userId = user.id 
         await profileService.create( data )
         /** respuesta */
         res.status(201).json({message: 'Perfil registrado'})
@@ -34,7 +35,6 @@ exports.updateProfile = async (req, res) => {
     try {
         const data = req.body
         const user = req.user
-console.log(user.id)
 
         const profile = await profileService.update( user.id, data )
         res.status(200).json({message: 'Datos Actualizados con exito', profile})

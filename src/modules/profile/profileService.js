@@ -12,7 +12,7 @@ class ProfileService{
     }
 
     async create( data ){
-        const profile = new Profile(data)
+        const profile = new Profile( data )
         return await profile.save()
     }
 

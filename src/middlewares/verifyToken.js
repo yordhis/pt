@@ -10,7 +10,10 @@ const verifyToken = (req, res, next) => {
         if(!authorization) {
             const payloadAnonimo = {
                 username: 'anonimo',
-                rol: 'readertxt'
+                rol: 'readertxt',
+                permissions: [],
+                modules: [],
+                profile:{}
             }
             /** Generamos un token de solo lectura de texto anonimo */
             const token = jwt.sign(payloadAnonimo, process.env.APP_SECRET_KEY, {expiresIn:'1h'})

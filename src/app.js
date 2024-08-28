@@ -27,7 +27,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 /** Solo para desarrollo */
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 
 /** Usamos las rutas importadas en nuestra app */
 app.use(routers)
