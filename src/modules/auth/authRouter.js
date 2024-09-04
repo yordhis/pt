@@ -1,5 +1,5 @@
 const express = require('express')
-const { register, login } = require('./authController')
+const { register, login, destroyUser } = require('./authController')
 const validateUsername = require('./middlewares/register/validateUsername')
 const validateRolRegister = require('./middlewares/register/validateRolRegister')
 const validateRolRegisterAdmin = require('./middlewares/register/validateRolRegisterAdmin')
@@ -29,6 +29,7 @@ const middLogin = [
 router.post('/register', middRegister , register)
 router.post('/registerAdmin', middRegisterAdmin , register)
 router.post('/login', middLogin, login)
+router.delete('/:id', destroyUser)
 
 
 module.exports = router
