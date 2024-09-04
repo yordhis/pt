@@ -8,7 +8,7 @@ const validateEmail = async (req, res, next) => {
     if( email ){ 
         let emailFind = await authService.filterByEmail( req.body.email )
         if(emailFind){
-            return res.status(400).json({ messaje: 'El email ya existe', status: 400 })
+            return res.status(400).json({ message: 'El email ya existe', status: 400 })
         }
     }
     
