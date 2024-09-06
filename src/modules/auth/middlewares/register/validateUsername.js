@@ -8,7 +8,7 @@ const validateUsername = async (req, res, next) => {
     if( username ){
         let usernameFind = await authService.filterByUsername( username )
         if(usernameFind){
-            return res.status(400).json({ messaje: 'El usuario ya existe.', status: 400 })
+            return res.status(401).json({ message: 'El nombre de usuario ya existe!', status: 401 })
         }
     }
     

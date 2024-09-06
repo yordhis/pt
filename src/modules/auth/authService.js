@@ -5,11 +5,10 @@ require('dotenv').config()
 const userAdapter = require('./adapters/userAdapter')
 const UserAuth = require('./authModel')
 
-class AuthService{
-    constructor(){}
+class AuthService  {
 
     async register(data){
-        data.password = bcrypt.hashSync(data.password, 10)
+        data.password = bcrypt.hashSync( data.password, 10 )
         const userAuth = new UserAuth(data)
         return await userAuth.save()
     }
@@ -22,6 +21,10 @@ class AuthService{
     async filterByEmail(email){
         const data = await UserAuth.findOne({ email })
         return await userAdapter( data )
+    }
+
+    async destroyUser(userId){
+        return await UserAuth.deleteOne(userId)
     }
 
     async genrateToken(payload){

@@ -26,7 +26,15 @@ exports.login = async (req, res) => {
 
 exports.destroyUser = async ( req, res ) =>{
     try {
-        const { id } = req.params
+        let { id } = req.params
+        let userId = false
+
+        if( id == 'admin' ){
+            userId = await authService.filterByUsername(id)
+        }
+        
+        id = userId ? userId.id : id
+
         authService.destroyUser(id)
 
         const result = await profileService.filterById(id)
