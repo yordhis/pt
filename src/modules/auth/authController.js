@@ -29,7 +29,7 @@ exports.destroyUser = async ( req, res ) =>{
         let { id } = req.params
         let userId = false
 
-        if( id == 'admin' ){
+        if( id == 'admin' || id == 'reader' || id == 'creator'){
             userId = await authService.filterByUsername(id)
         }
         

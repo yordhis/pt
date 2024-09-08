@@ -32,17 +32,6 @@ app.use(express.urlencoded({extended:false}))
 /** Usamos las rutas importadas en nuestra app */
 app.use(routers)
 
-
-/**
- * @_SOCKET 
- */
-const server = require('http').createServer(app)
-const io = socket(server)
-require('./socket')(io)
-
-server.listen(app.get('port'), () => {
-    console.log(`Servidor corriendo en: http://${app.get('host')}:${app.get('port')}`)
-})
-
 module.exports = app
+
 
