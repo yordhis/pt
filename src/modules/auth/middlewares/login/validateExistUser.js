@@ -11,7 +11,7 @@ const validateExistUser = async ( req, res, next ) => {
     if( username ) user = await authService.filterByUsername( username )
     if ( !user ) {
         if ( email ) user = await authService.filterByEmail( email )
-        if( !user ) return res.status(401).json({ message: 'Usuario o email invalidos', status: 401 })
+        if( !user ) return res.status(401).json({ message: 'Username or email not exist', status: 401 })
     }
     
     req.user = user

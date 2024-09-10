@@ -29,7 +29,7 @@ const middLogin = [
 router.post('/register', middRegister , register)
 router.post('/registerAdmin', middRegisterAdmin , register)
 router.post('/login', middLogin, login)
-router.delete('/:id', destroyUser)
+router.delete('/delete/:id', destroyUser)
 
 
 module.exports = router
