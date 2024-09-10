@@ -7,7 +7,7 @@ const app = require('../src/app')
 describe('Testing the multimedia content module', () => {
     describe('Router [Get]/libreries', () => {
         test('Should return the content without multimedia links', async () => {
-            const response = await request( app ).get('/api/libreries')
+            const response = await request( app ).get('/api/libraries')
 
             expect(response.statusCode).toEqual(200)
         })
