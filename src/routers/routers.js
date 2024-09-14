@@ -8,12 +8,14 @@ const rolRouter = require('../modules/rol/rolRouter')
 const libraryRouter = require('../modules/library/libraryRouter')
 const verifyToken = require('../middlewares/verifyToken')
 const veirifyPermissionOfRequestUser = require('../middlewares/verifyPermissionOfRequestUser')
+const configRouter = require('../modules/config/configRouter')
 
 const permissionOfUser = [
     verifyToken,
     veirifyPermissionOfRequestUser
 ]
 
+router.use('/api/config', configRouter)
 router.use('/api/auth', authRouter)
 
 router.use('/api/rols', permissionOfUser, rolRouter)

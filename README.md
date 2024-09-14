@@ -47,7 +47,12 @@ Y por otra parte permite tres tipos de usuarios para el manejo de permisos:
 
 ## ¿Comó usar la api?
 ### ¡Pasos iniciales!
-1. Crear el usuario administrador con la ruta [auth] http://localhost:3000/api/auth/registerAdmin y envias el siguiente cuerpo json:
+1. Primero debe ejecutar la ruta config/init para inicializar los roles de la api
+  ~~~
+    // Usar el metodo POST
+    http://localhost:3000/api/config/init
+  ~~~
+2. Crear el usuario administrador con la ruta [auth] http://localhost:3000/api/auth/registerAdmin y envias el siguiente cuerpo json:
 ~~~
   {
     "username": "admin",
@@ -57,7 +62,7 @@ Y por otra parte permite tres tipos de usuarios para el manejo de permisos:
   }
 ~~~
 
-2. Registrar las categorias de contenidos (Permisos de contenido) con la ruta [categories] http://localhost:3000/api/categories y envias el siguiente cuerpo json:
+3. Registrar las categorias de contenidos (Permisos de contenido) con la ruta [categories] http://localhost:3000/api/categories y envias el siguiente cuerpo json:
 ~~~
   {
     "name":"video",
@@ -65,7 +70,7 @@ Y por otra parte permite tres tipos de usuarios para el manejo de permisos:
   }
 ~~~
 
-3. Registrar los temas para la biblioteca, con la ruta [themes] http://localhost:3000/api/themes y envias el siguiente cuerpo json:
+4. Registrar los temas para la biblioteca, con la ruta [themes] http://localhost:3000/api/themes y envias el siguiente cuerpo json:
 ~~~
   {
     "name": "matemáticas",
@@ -79,7 +84,7 @@ Y por otra parte permite tres tipos de usuarios para el manejo de permisos:
   }
 ~~~
 
-4. Registrar las librerias (recursos multimedia), con la ruta [libraries] http://localhost:3000/api/libraries y envias el siguiente cuerpo json:
+5. Registrar las librerias (recursos multimedia), con la ruta [libraries] http://localhost:3000/api/libraries y envias el siguiente cuerpo json:
 ~~~
   {
     "theme":"ciencias",

@@ -4,8 +4,9 @@ const ProfileService = require('../profile/profileService')
 const profileService = new ProfileService()
 
 exports.register = async (req, res) => {
-    try {
-        await authService.register(req.body)
+    try{
+        const data = req.body
+        await authService.register(data)
         res.status(201).json({ message: 'User register', status: 201 })
     } catch (error) {
         res.status(500).json({ message: error.message })
