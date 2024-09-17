@@ -18,7 +18,7 @@ const mongoose = new Mongoose
 mongoose.conncet()
 
 /** Importamos todas las rutas */
-import routers from './routers/routers'
+import routers from './routers/router'
 
 /** Le indicamos a nuetra app que lea las peticiones tipo @json */
 /** Esto nos permite ver los datos enviados */
