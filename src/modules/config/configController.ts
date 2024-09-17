@@ -3,7 +3,9 @@ import { ResponseT, ResquestT } from "../../interfaces/main"
 const RolService = require('../rol/rolService') 
 const rolService = new RolService()
 
-const init = ( req: ResquestT, res: ResponseT ): string => {
+const init = ( req: ResquestT, res: ResponseT ): ResponseT  => {
+    let message:string = 'OK', status:number = 200
+
     try {
         const rols = [
             {
@@ -26,12 +28,16 @@ const init = ( req: ResquestT, res: ResponseT ): string => {
         rols.forEach(rol => {
             rolService.register(rol)
         })
+      
+        message = 'Configuration initial seteada.', 
+        status = 201
         
-    } catch ( error: unknown ) {
-        res.status(500).json({ message: error.message ?? '', status:500 })
-
+    } catch ( error: any ) {
+        message += error ? error.message : ''
+        status = 500
     } finally{
-        res.status(201).json( { message:'Configuration initial seteada.', status:201 })
+       
+        return  res.status(status).json( { message, status })
     }
 }
 

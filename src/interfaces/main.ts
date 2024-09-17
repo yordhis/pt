@@ -1,7 +1,7 @@
 import { Request, response, Response } from 'express'
 
 export interface ResquestT extends Request {
-    user: any
+    user?: any
 }
 
 export interface ResponseT extends Response {

@@ -1,12 +1,18 @@
-const RolService = require('./rolService')
+import { ResponseT, ResquestT } from '../../interfaces/main'
+import RolInterface from './interfaces/Rol.interface'
+import RolService from './rolService'
 const rolService = new RolService()
 
-exports.register = async ( req, res ) => {
+export const register = async ( req: ResquestT, res: ResponseT ): ResponseT => {
+    let message:string = 'Rol agregado', status:number = 201 
+    let data
     try {
-        const data =  await rolService.register(req.body)
-        res.status(201).json({ message: 'Rol agregado.', status: 201, data  })
-    } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+        data =  await rolService.register(req.body)
+    } catch (error: any) {
+        message = error.message
+        status = 500 
+    } finally {
+        return res.status(status).json({ message, status, data })
     }
 }
 

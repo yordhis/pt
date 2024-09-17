@@ -1,31 +1,31 @@
-import Rol, { find, findOne, findByIdAndUpdate, deleteOne } from './rolModel'
+import Rol from './rolModel'
 import RolInterface from './interfaces/Rol.interface'
 
 class RolService{
 
-    async register(data: RolInterface){
-        const rol = new Rol(data)
+    async register( data: RolInterface ){
+        const rol = new Rol( data )
         return await rol.save()
     }
 
     async all(){
-        return await find({})
+        return await Rol.find({})
     }
 
-    async filterById( id ){
-        return await findOne({ _id: id })
+    async filterById( id: string ){
+        return await Rol.findOne({ _id: id })
     }
 
-    async filterByName( name ){
-        return await findOne({ name })
+    async filterByName( name: string ){
+        return await Rol.findOne({ name })
     }
 
-    async update( id, data ){
-        return await findByIdAndUpdate({ _id: id}, data)
+    async update( id: string, data: RolInterface ){
+        return await Rol.findByIdAndUpdate({ _id: id}, data)
     }
 
-    async destroy( id ){
-        return await deleteOne({_id:id})
+    async destroy( id: string ){
+        return await Rol.deleteOne({_id:id})
     }
 
 }

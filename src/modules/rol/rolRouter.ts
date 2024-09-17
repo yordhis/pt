@@ -1,9 +1,9 @@
-const express = require('express')
-const { all, filterById, register, update, destroy } = require('./rolController')
-const validateNotRepitRol = require('./middlewares/validateNotRepitRol')
-const validateNotRepitPermission = require('./middlewares/validateNotRepitPermission')
-const validatePermission = require('./middlewares/validatePermission')
-const validateNotRepitRolUpdate = require('./middlewares/validateNotRepitRolUpdate')
+import express from 'express'
+import { all, filterById, register, update, destroy } from './rolController'
+import validateNotRepitRol from './middlewares/validateNotRepitRol'
+import validateNotRepitPermission from './middlewares/validateNotRepitPermission'
+import validatePermission from './middlewares/validatePermission'
+import validateNotRepitRolUpdate from './middlewares/validateNotRepitRolUpdate'
 const router = express.Router()
 
 const middRegister = [
