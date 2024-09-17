@@ -5,10 +5,11 @@ import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
 
 export default tseslint.config(
   {
-    files: ["**/*.ts"],
+    files: ["**/*.ts", "*.test.js","*.spec.js"],
     extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
     rules: {
-      "semi": ["warn", "never"],
+      "semi": ["error", "never"],
+      "quotes": ["error", "single"]
     },
   }
 );
