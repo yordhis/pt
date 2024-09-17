@@ -9,7 +9,8 @@ export default tseslint.config(
     extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
     rules: {
       "semi": ["error", "never"],
-      "quotes": ["error", "single"]
+      "quotes": ["error", "single"],
+      "@typescript-eslint/no-explicit-any": ["warn"]
     },
   }
 );

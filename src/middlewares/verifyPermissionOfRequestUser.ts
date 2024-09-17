@@ -1,7 +1,8 @@
-const RolService = require('../modules/rol/rolService')
+import { ResponseT, ResquestT } from '../interfaces/main'
+import RolService from '../modules/rol/rolService'
 const rolService = new RolService()
 
-const veirifyPermissionOfRequestUser = async (req, res, next) => {
+const veirifyPermissionOfRequestUser = async (req: ResquestT, res: ResponseT, next) => {
     try {
         const user = req.user
         const pathname = req.baseUrl.split('/')[2]
