@@ -1,53 +1,65 @@
+import HTTP_CODE from '../../constants/code.const'
 import { ResponseT, ResquestT } from '../../interfaces/main'
 import RolInterface from './interfaces/Rol.interface'
 import RolService from './rolService'
 const rolService = new RolService()
 
-export const register = async ( req: ResquestT, res: ResponseT ): ResponseT => {
-    let message:string = 'Rol agregado', status:number = 201 
-    let data
+export const register = async ( req: ResquestT, res: ResponseT ): Promise<ResponseT> => {
+    let message:string = 'Rol agregado', status:number = HTTP_CODE.CREATE, data
     try {
         data =  await rolService.register(req.body)
     } catch (error: any) {
         message = error.message
-        status = 500 
+        status = HTTP_CODE.INTERNAL_SERVER_ERROR 
     } finally {
         return res.status(status).json({ message, status, data })
     }
 }
 
-exports.all = async ( req, res ) => {
+export const all = async ( req: ResquestT, res: ResponseT  ): Promise<ResponseT> => {
+    let message:string = 'Rol agregado', status:number = HTTP_CODE.OK, data
     try {
-        const data = await rolService.all()
-        res.status(200).json({ message: 'Ok', status: 200, data  })
-    } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+        data = await rolService.all()
+    } catch (error: any) {
+         message = error.message 
+         status = HTTP_CODE.INTERNAL_SERVER_ERROR
+    } finally { 
+        return res.status(status).json({ message, status, data })
     }
 }
 
-exports.filterById = async ( req, res ) => {
+export const filterById = async (req: ResquestT, res: ResponseT  ): Promise<ResponseT> => {
+    let message:string = 'Ok', status:number = HTTP_CODE.OK, data
     try {
         const data = await rolService.filterById( req.params.id )
-        res.status(200).json({ message: 'Ok', status: 200, data  })
-    } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+    } catch (error: any) {
+        message = error.message
+        status = HTTP_CODE.INTERNAL_SERVER_ERROR
+    } finally {
+        return res.status(status).json({ message, status, data })
     }
 }
 
-exports.update = async ( req, res ) => {
+export const update = async (req: ResquestT, res: ResponseT  ): Promise<ResponseT> => {
+    let message:string = 'Ok', status:number = HTTP_CODE.OK, data
     try {
-        const data = await rolService.update( req.params.id, req.body )
-        res.status(200).json({ message: 'Ok', status: 200, data  })
-    } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+        data = await rolService.update( req.params.id, req.body )
+    } catch (error: any) {
+        message = error.message
+        status = HTTP_CODE.INTERNAL_SERVER_ERROR
+    } finally {
+        return res.status(status).json({ message, status, data })
     }
 }
 
-exports.destroy = async ( req, res ) => {
+export const destroy = async (req: ResquestT, res: ResponseT  ): Promise<ResponseT> => {
+    let message:string = 'Ok', status:number = HTTP_CODE.OK, data
     try {
-        const data = await rolService.destroy( req.params.id )
-        res.status(200).json({ message: 'Ok', status: 200, data  })
-    } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+        data = await rolService.destroy( req.params.id )
+    } catch (error: any) {
+        message = error.message
+        status = HTTP_CODE.INTERNAL_SERVER_ERROR
+    } finally {
+        return res.status(status).json({ message, status, data })
     }
 }

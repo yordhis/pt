@@ -1,5 +1,6 @@
+import { Next, ResponseT, ResquestT } from "../../../interfaces/main"
 
-const validatePermission = ( req, res, next ) => {
+const validatePermission = ( req: ResquestT, res: ResponseT, next: Next ) => {
     try {
         const arrayPermissionStatic = ['GET', 'POST', 'PUT', 'DELETE']
         const { permissions } = req.body
@@ -15,4 +16,4 @@ const validatePermission = ( req, res, next ) => {
     }
 }
 
-module.exports = validatePermission
+export default validatePermission
