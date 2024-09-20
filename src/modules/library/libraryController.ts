@@ -22,7 +22,7 @@ export const register: Controller = async ( req, res ) => {
             credit: req.body.credit
         }
        
-        data = await libraryService.register( library ) ?? []
+        data = await libraryService.register( library ) 
     } catch (error: any) {
         message = 'Controlador de registro, Error:' + error.message
         status =  HTTP_CODE.INTERNAL_SERVER_ERROR
