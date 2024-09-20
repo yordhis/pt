@@ -1,5 +1,6 @@
 import HTTP_CODE from '../constants/code.const'
-import { Midd } from '../interfaces/main'
+import { Midd, RequestT } from '../interfaces/main'
+import { User } from '../modules/auth/interfaces/User.interface'
 import RolService from '../modules/rol/rolService'
 const rolService = new RolService()
 
@@ -12,24 +13,34 @@ const veirifyPermissionOfRequestUser: Midd = async (req, res, next) => {
         const allRols = await rolService.all()
 
         for (const rol of allRols) {
-            if (user.rol == rol.name) {
-
-                if ( !rol.modules.includes( pathname ) ) return res.status(HTTP_CODE.UNAUTHORIZE).json({ 
-                    message: 'Acceso denegado a este módulo.', 
-                    status: HTTP_CODE.UNAUTHORIZE })
-
-                /** 
-                 * Si el nombre de la ruta es @var profiles 
-                 * continua ya que es una accion de la cuenta del usuario logeado 
-                 */
-                if ( pathname == 'profiles' ) return next()
-
-                if ( !rol.permissions.includes( method ) ) return res.status(HTTP_CODE.UNAUTHORIZE).json({ 
-                    message: 'Acción denegada, no tiene permisos para ejecutar esta solicitud.', 
-                    status: HTTP_CODE.UNAUTHORIZE })
-              
-            } else{
-                res.status( HTTP_CODE.UNAUTHORIZE ).json({ message: 'Acceso denegado, el rol que poseé no existe.'})
+            if( typeof( user ) != 'undefined' ){
+                if ( user.rol == rol.name ) {
+    
+                    if ( !rol.modules.includes( pathname ) ) return res.status(HTTP_CODE.UNAUTHORIZE).json({ 
+                        message: 'Acceso denegado a este módulo.', 
+                        status: HTTP_CODE.UNAUTHORIZE })
+    
+                    /** 
+                     * Si el nombre de la ruta es @var profiles 
+                     * continua ya que es una accion de la cuenta del usuario logeado 
+                     */
+                    if ( pathname == 'profiles' ) return next()
+    
+                    if ( !rol.permissions.includes( method ) ) return res.status(HTTP_CODE.UNAUTHORIZE).json({ 
+                        message: 'Acción denegada, no tiene permisos para ejecutar esta solicitud.', 
+                        status: HTTP_CODE.UNAUTHORIZE })
+                  
+                } else{
+                    res.status( HTTP_CODE.UNAUTHORIZE ).json({ 
+                        message: 'Acceso denegado, el rol que poseé no existe.',
+                        status: HTTP_CODE.UNAUTHORIZE
+                    })
+                }
+            }else{
+                res.status( HTTP_CODE.UNAUTHORIZE ).json({ 
+                    message: 'Usuario no definido.',
+                    status: HTTP_CODE.UNAUTHORIZE
+                })
             }
         }
 
@@ -47,4 +58,4 @@ const veirifyPermissionOfRequestUser: Midd = async (req, res, next) => {
 
 }
 
-module.exports = veirifyPermissionOfRequestUser
+export default veirifyPermissionOfRequestUser

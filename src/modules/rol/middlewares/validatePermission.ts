@@ -1,18 +1,25 @@
-import { Next, ResponseT, ResquestT } from "../../../interfaces/main"
+import HTTP_CODE from "../../../constants/code.const"
+import { Midd } from "../../../interfaces/main"
 
-const validatePermission = ( req: ResquestT, res: ResponseT, next: Next ) => {
+
+const validatePermission: Midd = async ( req, res, next ) => {
     try {
         const arrayPermissionStatic = ['GET', 'POST', 'PUT', 'DELETE']
         const { permissions } = req.body
+
         for (let i = 0; i < permissions.length; i++) {
             const permission = permissions[i]
-            if(! arrayPermissionStatic.includes(permission) ) return res.status(400).json({ message: 'El permiso ingresado no es valido', status: 400 })
+            if(! arrayPermissionStatic.includes(permission) ) return res.status( HTTP_CODE.BAD_REQUEST ).json({ 
+                message: 'El permiso ingresado no es valido', 
+                status: HTTP_CODE.BAD_REQUEST })
         }
-        
+    } catch (error: any) {
+        return res.status( HTTP_CODE.INTERNAL_SERVER_ERROR ).json({ 
+            message: error.message, 
+            status: HTTP_CODE.INTERNAL_SERVER_ERROR  
+        })
+    } finally {
         next()
-
-    } catch (error) {
-        return res.status(500).json({ message: error.message, status: 500 })
     }
 }
 

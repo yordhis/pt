@@ -12,7 +12,7 @@ const validateNotRepitRol: Midd = async ( req, res, next ) => {
         })
         
     } catch (error: any) {
-        return res.status(500).json({ 
+        return res.status( HTTP_CODE.INTERNAL_SERVER_ERROR ).json({ 
             message: error.message, 
             status: HTTP_CODE.INTERNAL_SERVER_ERROR 
         })

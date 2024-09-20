@@ -23,4 +23,4 @@ router.post('/', middRegister, register)
 router.put('/:id', middUpdate, update)
 router.delete('/:id', destroy)
 
-module.exports = router
+export default router

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import RolInterface from './interfaces/Rol.interface'
 const Schema = mongoose.Schema
 
 const RolSchema = new Schema({

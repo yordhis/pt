@@ -1,42 +1,45 @@
 /* eslint-disable no-undef */
-import { sign, verify } from 'jsonwebtoken'
+import { JwtPayload, sign, verify } from 'jsonwebtoken'
 import dotenv from 'dotenv'
-import { NextFunction } from 'express'
 import { User } from '../modules/auth/interfaces/User.interface'
-import { ResponseT, ResquestT } from '../interfaces/main'
+import { Midd } from '../interfaces/main'
+import HTTP_CODE from '../constants/code.const'
 dotenv.config()
 
-
-
-const verifyToken = (req: ResquestT, res: ResponseT, next: NextFunction): void | string => {
+const verifyToken: Midd =  async (req, res, next ) => {
     try {
         const authorization = req.headers.authorization
+        const payload: User = {
+            email: 'anonimo@anonimo.com',
+            username: 'anonimo',
+            rol: 'readertxt',
+            permissions: null,
+            modules: null,
+            profile:{}
+        }
         
         if(!authorization) {
-            const payloadAnonimo: User = {
-                email: 'anonimo@anonimo.com',
-                username: 'anonimo',
-                rol: 'readertxt',
-                permissions: null,
-                modules: null,
-                profile:{}
-            }
 
             /** Generamos un token de solo lectura de texto anonimo */
-            const token = sign( payloadAnonimo, process.env.JWT_SECRET_KEY ?? '', {expiresIn: process.env.JWT_EXPIRE_KEY} )
-            payloadAnonimo.token = token
+            const token = sign( payload, process.env.JWT_SECRET_KEY ?? '', {expiresIn: process.env.JWT_EXPIRE_KEY} )
+            payload.token = token
             
-            req.user = payloadAnonimo
+            req.user = payload
         }else{
 
             const token = authorization.split(' ')[1]
-            const payload = verify(token, process.env.JWT_SECRET_KEY ?? '')
-            req.user = payload
+            const tokenVerify = verify(token, process.env.JWT_SECRET_KEY ?? '')
+           return tokenVerify
+            req.user =  payload
         }
                 
+    } catch ( error: any ) {
+        res.status( HTTP_CODE.UNAUTHORIZE ).json({ 
+            message: 'file:verifyToken... Error: ' + error.message, 
+            status: HTTP_CODE.UNAUTHORIZE  
+        })
+    } finally {
         next()
-    } catch ( error ) {
-        res.status(401).json({ message: 'file:verifyToken... Error: ' + error.message, status: 401 })
     }
 
 }

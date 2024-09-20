@@ -1,5 +1,5 @@
 import Rol from './rolModel'
-import RolInterface from './interfaces/Rol.interface'
+import RolInterface  from './interfaces/Rol.interface'
 
 class RolService{
 

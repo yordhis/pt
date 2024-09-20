@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
+import { User } from '../modules/auth/interfaces/User.interface'
+
 
 /** Tipo e interfaces de express personalizados */
-export interface ResquestT extends Request {
-    user?: any
+export interface RequestT extends Request {
+    user?: User | undefined
 }
 export interface ResponseT extends Response {
     success?: ( status: number, message?: string ) => string
@@ -12,10 +14,10 @@ export type Next = NextFunction
 /** Cierre Tipo e interfaces de express personalizados */
 
 /** Tipo para los controlles */
-export type Controller = (req: ResquestT, res: ResponseT) => Promise<ResponseT>
+export type Controller = (req: RequestT, res: ResponseT) => Promise<ResponseT>
 
 /** Tipo para los middleware */
-export type Midd = (req: ResquestT, res: ResponseT, next: Next) => Promise<void | ResponseT>
+export type Midd = (req: RequestT, res: ResponseT, next: Next) => Promise<void | ResponseT>
 
 /** Interfaz de los código de respuesta http */
 export interface HTTP_CODE_I {

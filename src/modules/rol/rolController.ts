@@ -1,10 +1,10 @@
 import HTTP_CODE from '../../constants/code.const'
-import { ResponseT, ResquestT } from '../../interfaces/main'
+import { ResponseT, RequestT } from '../../interfaces/main'
 import RolInterface from './interfaces/Rol.interface'
 import RolService from './rolService'
 const rolService = new RolService()
 
-export const register = async ( req: ResquestT, res: ResponseT ): Promise<ResponseT> => {
+export const register = async ( req: RequestT, res: ResponseT ): Promise<ResponseT> => {
     let message:string = 'Rol agregado', status:number = HTTP_CODE.CREATE, data
     try {
         data =  await rolService.register(req.body)
@@ -16,7 +16,7 @@ export const register = async ( req: ResquestT, res: ResponseT ): Promise<Respon
     }
 }
 
-export const all = async ( req: ResquestT, res: ResponseT  ): Promise<ResponseT> => {
+export const all = async ( req: RequestT, res: ResponseT  ): Promise<ResponseT> => {
     let message:string = 'Rol agregado', status:number = HTTP_CODE.OK, data
     try {
         data = await rolService.all()
@@ -28,7 +28,7 @@ export const all = async ( req: ResquestT, res: ResponseT  ): Promise<ResponseT>
     }
 }
 
-export const filterById = async (req: ResquestT, res: ResponseT  ): Promise<ResponseT> => {
+export const filterById = async (req: RequestT, res: ResponseT  ): Promise<ResponseT> => {
     let message:string = 'Ok', status:number = HTTP_CODE.OK, data
     try {
         const data = await rolService.filterById( req.params.id )
@@ -40,7 +40,7 @@ export const filterById = async (req: ResquestT, res: ResponseT  ): Promise<Resp
     }
 }
 
-export const update = async (req: ResquestT, res: ResponseT  ): Promise<ResponseT> => {
+export const update = async (req: RequestT, res: ResponseT  ): Promise<ResponseT> => {
     let message:string = 'Ok', status:number = HTTP_CODE.OK, data
     try {
         data = await rolService.update( req.params.id, req.body )
@@ -52,7 +52,7 @@ export const update = async (req: ResquestT, res: ResponseT  ): Promise<Response
     }
 }
 
-export const destroy = async (req: ResquestT, res: ResponseT  ): Promise<ResponseT> => {
+export const destroy = async (req: RequestT, res: ResponseT  ): Promise<ResponseT> => {
     let message:string = 'Ok', status:number = HTTP_CODE.OK, data
     try {
         data = await rolService.destroy( req.params.id )

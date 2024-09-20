@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const LibrarySchema = new Schema({
@@ -13,4 +13,4 @@ const LibrarySchema = new Schema({
 
 const Library = mongoose.model('Library', LibrarySchema)
 
-module.exports = Library
+export default Library

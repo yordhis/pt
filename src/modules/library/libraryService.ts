@@ -1,52 +1,42 @@
-const Library = require('./libraryModel')
-const libraryAllAdapter = require('./adapters/libraryAllAdapter')
-const librarySingleAdapter = require('./adapters/librarySingleAdapter')
+import Library from './libraryModel'
+import { User } from '../auth/interfaces/User.interface'
+import LibraryInterface from './interfaces/Library.interface'
 
 class LibraryService {
-    constructor(user){
-        this.user = user
-    }
 
-    async register( data ){
+    async register( data: LibraryInterface ){
         const library = new Library( data )
         return await library.save()
     }
 
     async all(){
-        const data = await Library.find({}) 
-        return await libraryAllAdapter( data, this.user )
+        return await Library.find({}) 
     }
 
-    async filterById( id ){
-        const data = await Library.findOne({ _id: id })
-        return await librarySingleAdapter( data, this.user )
+    async filterById( id: string ){
+        return await Library.findOne({ _id: id })
     }
     
-    async filterByIdTheme( idTheme ){
-        const data = await Library.find({ idTheme })
-        return await libraryAllAdapter( data, this.user )
+    async filterByIdTheme( idTheme: string ){
+        return await Library.find({ idTheme })
     }
 
-    async filterByTitle( title ){
-        const data = await Library.findOne({ title })
-        return await librarySingleAdapter( data, this.user )
+    async filterByTitle( title: string ){
+        return await Library.findOne({ title })
+      
     }
 
-    async filterByTitleAndByTheme( title, theme ){
-        const data = await Library.findOne({ title, theme })
-        return await librarySingleAdapter( data, this.user )
+    async filterByTitleAndByTheme( title: string, theme: string ){
+        return await Library.findOne({ title, theme })
     }
     
-    async update( id, data ){
+    async update( id: string, data: LibraryInterface ){
         return await Library.findByIdAndUpdate({ _id: id }, data )
     }
 
-    async destroy( id ){
+    async destroy( id: string ){
         return await Library.deleteOne({ _id: id })
     }
-
-
-
 }
 
-module.exports = LibraryService
+export default LibraryService

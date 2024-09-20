@@ -1,34 +1,46 @@
+import HTTP_CODE from "../../constants/code.const"
+import { Controller } from "../../interfaces/main"
+import { User } from "./interfaces/User.interface"
+
 const AuthService = require('./authService')
 const authService = new AuthService()
 const ProfileService = require('../profile/profileService')
 const profileService = new ProfileService()
 
-exports.register = async (req, res) => {
+export const register: Controller = async (req, res) => {
+    let message:string = 'User register', status:number = HTTP_CODE.CREATE, data
+
     try{
         const data = req.body
         await authService.register(data)
-        res.status(201).json({ message: 'User register', status: 201 })
-    } catch (error) {
-        res.status(500).json({ message: error.message })
+    } catch ( error: any) {
+        message: error.message 
+        status = HTTP_CODE.INTERNAL_SERVER_ERROR
+    } finally {
+        return res.status(status).json({ message, status})
     }
 }
 
-exports.login = async (req, res) => {
+export const login: Controller = async (req, res) => {
+    let message:string = 'User is login', status:number = HTTP_CODE.OK, data
+
     try {
-        
         const payload = req.user
         const token = await authService.genrateToken( payload )
-        res.status(200).json({ message: 'User is login', status:200, token })
-
-    } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+    } catch (error: any) {
+        message: error.message 
+        status = HTTP_CODE.INTERNAL_SERVER_ERROR
+    } finally {
+        return res.status(status).json({ message, status })
     }
 }
 
-exports.destroyUser = async ( req, res ) =>{
+export const destroyUser: Controller = async ( req, res ) =>{
+    let message:string = 'Deleted account', status:number = HTTP_CODE.OK, data
+
     try {
         let { id } = req.params
-        let userId = false
+        let userId
 
         if( id == 'admin' || id == 'reader' || id == 'creator'){
             userId = await authService.filterByUsername(id)
@@ -43,9 +55,11 @@ exports.destroyUser = async ( req, res ) =>{
             profileService.delete(id)
         }
 
-        res.status(200).json({ message: 'Deleted account', status: 200 })
-    } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+    } catch (error: any) {
+        message: error.message 
+        status = HTTP_CODE.INTERNAL_SERVER_ERROR
+    } finally {
+        return res.status(status).json({ message, status })
     }
 
 }

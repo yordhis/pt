@@ -1,13 +1,18 @@
-import mongoose from 'mongoose'
-const Schema = mongoose.Schema
+import { prop, getModelForClass } from '@typegoose/typegoose'
 
-const UserAuthSchema = new Schema({
-    username: String,
-    email: String,
-    password: String,
-    rol: String
-})
+class UserAuthClass {
+    @prop()
+    username: string
 
-const UserAuth = mongoose.model('UserAuth', UserAuthSchema)
+    @prop()
+    email: string
 
-module.exports = UserAuth
+    @prop({required: true, minlength: 6 })
+    password: string
+
+    @prop({required: true})
+    rol: string
+}
+const UserAuth = getModelForClass(UserAuthClass)
+
+export default UserAuth

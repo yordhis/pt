@@ -1,19 +1,33 @@
-const validateNotRepitPermission = (req, res, next) => {
+import HTTP_CODE from "../../../constants/code.const"
+import { Midd } from "../../../interfaces/main"
+
+const validateNotRepitPermission: Midd = async (req, res, next) => {
     try {
         const { permissions } = req.body
+
         let capture = []
-        console.log(permissions)
+    
+        /** Se catura los permisos repetidos en el arreglo de permissions */
         for (let i = 0; i < permissions.length; i++) {
-            const permission = permissions[i]
-            let arrayFilter = permissions.filter(perm => perm === permission)
+            const permission:string = permissions[i]
+            let arrayFilter = permissions.filter( ( perm: string ) => perm === permission)
             if (arrayFilter.length > 1) capture.push( arrayFilter )
         }
 
-        if(capture.length) return res.status(400).json({ message: 'Esta enviando permisos repetidos.', status: 400 })
-        else next()
-    } catch (error) {
-        return res.status(500).json({ message: error.messsage, status: 500 })
+        /** Validamos si huvo una captura de permisos repetidos */
+        if(capture.length) return res.status(HTTP_CODE.BAD_REQUEST).json({
+            message: 'Esta enviando permisos repetidos.', 
+            status: HTTP_CODE.BAD_REQUEST 
+        })
+
+    } catch (error: any) {
+        return res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({ 
+            message: error.messsage, 
+            status: HTTP_CODE.INTERNAL_SERVER_ERROR 
+        })
+    } finally {
+        next()
     }
 }
 
-module.exports = validateNotRepitPermission
+export default validateNotRepitPermission

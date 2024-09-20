@@ -1,9 +1,9 @@
-const express = require('express')
-const { all, filterById, register, update, destroy, filterByIdTheme } = require('./libraryController')
-const validateThemeExists = require('./middlewares/validateThemeExists')
-const validateThemeIsActive = require('./middlewares/validateThemeIsActive')
-const validatePermissionsOfContent = require('./middlewares/validatePermissionsOfContent')
-const validateNotRepitMultimediaInTheme = require('./middlewares/validateNotRepitMultimediaInTheme')
+import express from 'express'
+import { all, filterById, register, update, destroy, filterByIdTheme } from './libraryController'
+import validateThemeExists from './middlewares/validateThemeExists'
+import validateThemeIsActive from './middlewares/validateThemeIsActive'
+import validatePermissionsOfContent from './middlewares/validatePermissionsOfContent'
+import validateNotRepitMultimediaInTheme from './middlewares/validateNotRepitMultimediaInTheme'
 const router = express.Router()
 
 const middTheme = [
