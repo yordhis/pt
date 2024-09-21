@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
-import { User } from '../modules/auth/interfaces/User.interface'
+import { UserAdapter, UserInterface } from '../modules/auth/interfaces/User.interface'
 
 
 /** Tipo e interfaces de express personalizados */
 export interface RequestT extends Request {
-    user?: User | undefined
+    user?: UserAdapter | undefined
+    credentials?: UserInterface | undefined
 }
 export interface ResponseT extends Response {
     success?: ( status: number, message?: string ) => string
