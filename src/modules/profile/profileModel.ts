@@ -1,14 +1,22 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import { getModelForClass, prop } from "@typegoose/typegoose"
 
-const ProfileSchema = new Schema({
-    name: String,
-    lastname: String,
-    phone: String,
-    address: String,
-    userId: String
-})
 
-const Profile = mongoose.model('Profile', ProfileSchema)
+class ProfileMoldel{
+    @prop()
+    name: string
 
-module.exports = Profile
+    @prop()
+    lastname: string
+
+    @prop()
+    phone: string
+    
+    @prop()
+    address: string
+
+    @prop()
+    userId: string
+}
+
+const Profile = getModelForClass(ProfileMoldel)
+export default Profile

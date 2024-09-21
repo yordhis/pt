@@ -1,30 +1,26 @@
-/** Se Importa el modelo @User  */
-const Profile = require('./profileModel')
+import { ProfileInterface } from './interfaces/Profile.interface'
+import Profile from './profileModel'
 
-/** Creamos una clase (OBJETO) */
 class ProfileService{
-    /** Inicializamos el constructor vacio */
-    constructor(){}
 
-    async filterById( userId ){
+    async filterById( userId: string ): Promise<ProfileInterface | null>{
         const profile = await Profile.findOne({ userId })
         return profile
     }
 
-    async create( data ){
+    async create( data: ProfileInterface ): Promise<ProfileInterface>{
         const profile = new Profile( data )
         return await profile.save()
     }
 
-    async update( userId , data ){
+    async update( userId: string , data:ProfileInterface  ){
         return await Profile.findOneAndUpdate({ userId: userId }, data)
     }
 
-    async delete( userId ){
+    async delete( userId:string ){
         return await Profile.deleteOne({ userId })
     }
    
 }
 
-/** Exportamos la class */
-module.exports = ProfileService
+export default ProfileService

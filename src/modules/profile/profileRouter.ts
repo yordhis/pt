@@ -1,6 +1,6 @@
-const express = require('express')
-const { getProfile, createProfile, updateProfile, deleteProfile } = require('./profileController')
-const validateProfileExist = require('./middlewares/validateProfileExist')
+import express from 'express'
+import { getProfile, createProfile, updateProfile, deleteProfile } from './profileController'
+import validateProfileExist from './middlewares/validateProfileExist'
 const router = express.Router()
 
 
