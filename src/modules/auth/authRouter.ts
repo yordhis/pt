@@ -1,11 +1,11 @@
-const express = require('express')
-const { register, login, destroyUser } = require('./authController')
-const validateUsername = require('./middlewares/register/validateUsername')
-const validateRolRegister = require('./middlewares/register/validateRolRegister')
-const validateRolRegisterAdmin = require('./middlewares/register/validateRolRegisterAdmin')
-const validateEmail = require('./middlewares/register/validateEmail')
-const validateExistUser = require('./middlewares/login/validateExistUser')
-const validatePassword = require('./middlewares/login/validatePassword')
+import express from 'express'
+import { register, login, destroyUser } from './authController'
+import validateUsername from './middlewares/register/validateUsername'
+import validateRolRegister from './middlewares/register/validateRolRegister'
+import validateRolRegisterAdmin from './middlewares/register/validateRolRegisterAdmin'
+import validateEmail from './middlewares/register/validateEmail'
+import validateExistUser from './middlewares/login/validateExistUser'
+import validatePassword from './middlewares/login/validatePassword'
 const router = express.Router()
 
 const middRegister = [
@@ -32,4 +32,4 @@ router.post('/login', middLogin, login)
 router.delete('/delete/:id', destroyUser)
 
 
-module.exports = router
+export default router

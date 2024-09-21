@@ -1,38 +1,38 @@
 
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
-const userAdapter = require('./adapters/userAdapter')
-const UserAuth = require('./authModel')
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
+
+import UserAuth from './authModel'
+import { UserAdapter, UserInterface } from './interfaces/User.interface'
 
 class AuthService  {
 
-    async register(data){
+    async register( data: UserInterface ){
         data.password = bcrypt.hashSync( data.password, 10 )
         const userAuth = new UserAuth(data)
         return await userAuth.save()
     }
 
-    async filterByUsername(username){
-        const data = await UserAuth.findOne({ username })
-        return await userAdapter( data )
+    async filterByUsername( username: string ): Promise<UserInterface | null>{
+        return await UserAuth.findOne({ username })
     }
 
-    async filterByEmail(email){
-        const data = await UserAuth.findOne({ email })
-        return await userAdapter( data )
+    async filterByEmail( email: string ):Promise<UserInterface | null>{
+        return await UserAuth.findOne({ email })
+     
     }
 
-    async destroyUser(userId){
-        return await UserAuth.deleteOne(userId)
+    async destroyUser( userId: string ){
+        return await UserAuth.deleteOne({userId})
     }
 
-    async genrateToken(payload){
-        // eslint-disable-next-line no-undef
-        const token =  await jwt.sign(payload, process.env.APP_SECRET_KEY, { expiresIn: '1h' })
+    async genrateToken( payload: UserAdapter ){
+        const token = await jwt.sign( payload, process.env.APP_SECRET_KEY ?? 'secret-key' , { expiresIn: '1h' })
         return token
     }
 
 }
 
-module.exports = AuthService
+export default AuthService
