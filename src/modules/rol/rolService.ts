@@ -1,33 +1,31 @@
-import Rol from './rolModel'
-import RolInterface  from './interfaces/Rol.interface'
+import Rol from "./rolModel"
+import RolInterface from "./interfaces/Rol.interface"
 
-class RolService{
+class RolService {
+  async register(data: RolInterface) {
+    const rol = new Rol(data)
+    return await rol.save()
+  }
 
-    async register( data: RolInterface ){
-        const rol = new Rol( data )
-        return await rol.save()
-    }
+  async all(): Promise<RolInterface[]> {
+    return await Rol.find({})
+  }
 
-    async all(){
-        return await Rol.find({})
-    }
+  async filterById(id: string): Promise<RolInterface | null> {
+    return await Rol.findOne({ _id: id })
+  }
 
-    async filterById( id: string ){
-        return await Rol.findOne({ _id: id })
-    }
+  async filterByName(name: string): Promise<RolInterface | null> {
+    return await Rol.findOne({ name })
+  }
 
-    async filterByName( name: string ){
-        return await Rol.findOne({ name })
-    }
+  async update(id: string, data: RolInterface): Promise<RolInterface | null> {
+    return await Rol.findByIdAndUpdate({ _id: id }, data)
+  }
 
-    async update( id: string, data: RolInterface ){
-        return await Rol.findByIdAndUpdate({ _id: id}, data)
-    }
-
-    async destroy( id: string ){
-        return await Rol.deleteOne({_id:id})
-    }
-
+  async destroy(id: string) {
+    return await Rol.deleteOne({ _id: id })
+  }
 }
 
 export default RolService
