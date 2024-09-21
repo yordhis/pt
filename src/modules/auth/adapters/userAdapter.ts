@@ -1,26 +1,36 @@
-const RolService = require('../../rol/rolService')
-const ProfileService = require('../../profile/profileService')
+import RolService from "../../rol/rolService"
+import ProfileService from "../../profile/profileService"
+import { UserAdapter, UserInterface } from "../interfaces/User.interface"
+import { ProfileType } from "../../profile/types/profile.type"
 const profileService = new ProfileService()
 const rolService = new RolService()
 
-const userAdapter = async ( data ) => {
-    if( data ){
-        const { permissions, modules } = await rolService.filterByName( data.rol )
-        const profile = await profileService.filterById( data._id )
-    
-        return {
+const userAdapter = async (data: UserInterface): Promise<UserAdapter | null> => {
+  try {
+    if (data) {
+      if (!data._id) {
+        return null
+      } else {
+        const role = await rolService.filterByName(data.rol)
+        if (role) {
+          const { permissions, modules } = role
+          const profile: ProfileType = await profileService.filterById(data._id)
+
+          return {
             id: data._id,
             username: data.username,
             email: data.email,
-            password: data.password,
             rol: data.rol,
             permissions,
             modules,
-            profile
-        }     
-    }else{
-        return null
+            profile,
+          }
+        }
+      }
     }
+  } finally {
+    return null
+  }
 }
 
-module.exports = userAdapter
+export default userAdapter

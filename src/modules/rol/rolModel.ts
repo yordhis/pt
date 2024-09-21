@@ -1,13 +1,16 @@
-import mongoose from 'mongoose'
-import RolInterface from './interfaces/Rol.interface'
-const Schema = mongoose.Schema
+import { prop, getModelForClass } from "@typegoose/typegoose"
 
-const RolSchema = new Schema({
-    name: String,
-    permissions: Array,
-    modules: Array
-})
+class RolModel {
+  @prop()
+  name: String
 
-const Rol = mongoose.model('Rol', RolSchema)
+  @prop({ type: Array })
+  permissions: Array<string>
+
+  @prop({ type: Array })
+  modules: Array<string>
+}
+
+const Rol = getModelForClass(RolModel)
 
 export default Rol
