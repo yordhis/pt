@@ -1,4 +1,4 @@
-const ContentCategory = require('./contentCategoryModel')
+import ContentCategory from './contentCategoryModel'
 
 
 class ContentCategoryService{

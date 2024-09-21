@@ -2,7 +2,7 @@ import express from 'express'
 const router = express.Router()
 // import profileRouter from '../modules/profile/profileRouter'
 import authRouter from '../modules/auth/authRouter'
-// import contentCategoryRouter from '../modules/contentCategory/contentCategoryRouter'
+import contentCategoryRouter from '../modules/contentCategory/contentCategoryRouter'
 // import themeRouter from '../modules/theme/themeRouter'
 // import rolRouter from '../modules/rol/rolRouter'
 // import libraryRouter from '../modules/library/libraryRouter'

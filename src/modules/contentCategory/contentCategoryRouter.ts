@@ -1,6 +1,6 @@
-const express = require('express')
-const { register, all, filterById, destroy, update } = require('./contentCategoryController')
-const validateNameContentCategory = require('./middlewares/validateNameContntCategory')
+import express from 'express'
+import { register, all, filterById, destroy, update } from './contentCategoryController'
+import validateNameContentCategory from './middlewares/validateNameContntCategory'
 const router = express.Router()
 
 

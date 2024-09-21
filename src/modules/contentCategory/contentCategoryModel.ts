@@ -1,11 +1,13 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import { getModelForClass, prop } from "@typegoose/typegoose"
 
-const ContentCategorySchema = new Schema({
-    name: String,
+
+class ContentCategoryModel {
+    @prop()
+    name: String
+    @prop()
     status: String
-})
+}
 
-const ContentCategory = mongoose.model('ContentCategory', ContentCategorySchema)
+const ContentCategory = getModelForClass(ContentCategoryModel)
 
-module.exports = ContentCategory
+export default ContentCategory
