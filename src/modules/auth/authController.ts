@@ -29,9 +29,11 @@ export const login: Controller = async (req, res) => {
 
   try {
     if (req.credentials) {
-      const payload = await userAdapter(req.credentials)
+      
+      const payload = await userAdapter( req.credentials )
+      
       if (payload) {
-        token = await authService.genrateToken(payload)
+        token = await authService.genrateToken(payload)        
       }
     } else {
       message = "Incorrect credentials"

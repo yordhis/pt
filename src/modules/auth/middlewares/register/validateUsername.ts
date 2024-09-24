@@ -16,13 +16,12 @@ const validateUsername: Midd = async ( req, res, next ) => {
                 })
             }
         }
+        next()
     } catch (error: any) {
         return res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({ 
             message: error.message, 
             status: HTTP_CODE.INTERNAL_SERVER_ERROR 
         })
-    } finally {
-        next()
     }
     
     

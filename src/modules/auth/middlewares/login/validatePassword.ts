@@ -28,14 +28,13 @@ const validatePassword: Midd = async (req, res, next) => {
         status: HTTP_CODE.UNAUTHORIZE,
       })
     }
+    next()
   } catch (error: any) {
     res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({
       message: error.message,
       status: HTTP_CODE.INTERNAL_SERVER_ERROR,
     })
-  } finally {
-    next()
-  }
+  } 
 }
 
 export default validatePassword

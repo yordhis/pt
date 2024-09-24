@@ -9,20 +9,20 @@ const validateEmail: Midd = async ( req, res, next ) => {
         if( email ){ 
             let emailFind = await authService.filterByEmail( email )
             if(emailFind){
-                res.status( HTTP_CODE.UNAUTHORIZE ).json({ 
+                return res.status( HTTP_CODE.UNAUTHORIZE ).json({ 
                     message: 'El email ya existe', 
                     status: HTTP_CODE.UNAUTHORIZE 
                 })
             }
         }
+        next()
+
     } catch ( error: any ) {
-        res.status( HTTP_CODE.INTERNAL_SERVER_ERROR ).json({ 
+        return res.status( HTTP_CODE.INTERNAL_SERVER_ERROR ).json({ 
             message: error.message, 
             status: HTTP_CODE.INTERNAL_SERVER_ERROR 
         })
-    } finally {
-        next()
-    }
+    } 
 }
 
 export default validateEmail

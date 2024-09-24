@@ -5,8 +5,8 @@ import { ProfileType } from "../../profile/types/profile.type"
 const profileService = new ProfileService()
 const rolService = new RolService()
 
-const userAdapter = async (data: UserInterface): Promise<UserAdapter | null> => {
-  try {
+const userAdapter = async (data: UserInterface): Promise<UserAdapter | null | undefined> => {
+
     if (data) {
       if (!data._id) {
         return null
@@ -27,10 +27,10 @@ const userAdapter = async (data: UserInterface): Promise<UserAdapter | null> => 
           }
         }
       }
+    }else{
+      return null
     }
-  } finally {
-    return null
-  }
+ 
 }
 
 export default userAdapter

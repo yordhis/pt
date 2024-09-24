@@ -1,7 +1,7 @@
 import HTTP_CODE from "../../../../constants/code.const"
 import { Midd } from "../../../../interfaces/main"
 import AuthService from "../../authService"
-import { UserType } from "../../types/User.type"
+import { UserType } from "../../types/user.type"
 const authService = new AuthService()
 
 /**
@@ -23,14 +23,13 @@ const validateExistUser: Midd = async (req, res, next) => {
         })
     }
     req.credentials = user
+    next()
   } catch (error: any) {
     res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({
       message: error.message,
       status: HTTP_CODE.INTERNAL_SERVER_ERROR,
     })
-  } finally {
-    next()
-  }
+  } 
 }
 
 export default validateExistUser

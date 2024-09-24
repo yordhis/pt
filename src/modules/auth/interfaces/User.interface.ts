@@ -5,8 +5,8 @@ export interface UserAdapter {
   username: string | undefined
   email: string | undefined
   rol: string
-  permissions: [string] | null
-  modules: [string] | null
+  permissions: string[] | null
+  modules: string[] | null
   profile?: ProfileInterface | null
   token?: string
 }
