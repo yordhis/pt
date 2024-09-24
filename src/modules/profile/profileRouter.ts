@@ -10,4 +10,4 @@ router.post('/', validateProfileExist, createProfile)
 router.put('/', updateProfile)
 router.delete('/', deleteProfile)
 
-module.exports = router
+export default router
