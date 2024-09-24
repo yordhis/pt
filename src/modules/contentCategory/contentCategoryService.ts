@@ -1,37 +1,36 @@
 import ContentCategory from './contentCategoryModel'
+import { ContentCategoryInterface } from './interfaces/ContentCategory.interface'
+import { contentCategoryType } from './types/contentCategory.type'
 
 
 class ContentCategoryService{
-    constructor(){}
-
-    async all(){
-        const data = await ContentCategory.find({})
-        return data
+    async all(): Promise<ContentCategoryInterface[]>{
+        return await ContentCategory.find({})
     }
 
-    async filterById( id ){
-        const data = await ContentCategory.findOne({ _id:id })
-        return data
+    async filterById( id:string ): Promise<contentCategoryType>{
+        return await ContentCategory.findOne({ _id:id })  
     }
 
-    async filterByName( name ){
-        const data = await ContentCategory.findOne({ name })
-        return data
+    async filterByName( name:string ): Promise<contentCategoryType>{
+        return await ContentCategory.findOne({ name })
+       
     }
 
-    async register(data){
+    async register(data: ContentCategoryInterface): Promise<ContentCategoryInterface>{
         const contentCategory = new ContentCategory(data)
         return await contentCategory.save()
     }
 
-    async update(id, data){
+    async update(id: string, data: ContentCategoryInterface): Promise<contentCategoryType>{
         return await ContentCategory.findByIdAndUpdate({_id:id}, data)
     }
 
-    async delete(id){
-        return await ContentCategory.deleteOne({_id:id})
+    async delete(id: string): Promise<boolean>{
+        const result =  await ContentCategory.deleteOne({_id:id})
+        return result ? true : false
     }
 
 }
 
-module.exports = ContentCategoryService
+export default ContentCategoryService

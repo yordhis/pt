@@ -2,10 +2,10 @@ import { getModelForClass, prop } from "@typegoose/typegoose"
 
 
 class ContentCategoryModel {
-    @prop()
-    name: String
-    @prop()
-    status: String
+    @prop({ required:true })
+    name: string
+    @prop({ default:1 })
+    status: string
 }
 
 const ContentCategory = getModelForClass(ContentCategoryModel)

@@ -11,4 +11,4 @@ router.get('/', all)
 router.get('/:id', filterById)
 
 
-module.exports = router
+export default router
