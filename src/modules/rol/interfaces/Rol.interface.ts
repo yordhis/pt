@@ -1,8 +1,8 @@
 
 
 export default interface RolInterface {
-    _id: {}
+    _id?: {}
     name: string
-    permissions:[string]
-    modules:[string]
+    permissions:string[]
+    modules:string[]
 }

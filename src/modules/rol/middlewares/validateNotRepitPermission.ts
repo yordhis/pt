@@ -19,15 +19,13 @@ const validateNotRepitPermission: Midd = async (req, res, next) => {
             message: 'Esta enviando permisos repetidos.', 
             status: HTTP_CODE.BAD_REQUEST 
         })
-
+        next()
     } catch (error: any) {
         return res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({ 
             message: error.messsage, 
             status: HTTP_CODE.INTERNAL_SERVER_ERROR 
         })
-    } finally {
-        next()
-    }
+    } 
 }
 
 export default validateNotRepitPermission

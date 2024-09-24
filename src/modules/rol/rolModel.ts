@@ -4,11 +4,11 @@ class RolModel {
   @prop()
   name: String
 
-  @prop({ type: Array })
-  permissions: Array<string>
+  @prop({ type: () => [String] })
+  permissions: string[]
 
-  @prop({ type: Array })
-  modules: Array<string>
+  @prop({ type: () => [String] })
+  modules: string[]
 }
 
 const Rol = getModelForClass(RolModel)

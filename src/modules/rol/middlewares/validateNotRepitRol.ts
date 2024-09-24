@@ -10,15 +10,13 @@ const validateNotRepitRol: Midd = async ( req, res, next ) => {
             message: 'Rol ya existe', 
             status: HTTP_CODE.BAD_REQUEST 
         })
-        
+        next()
     } catch (error: any) {
         return res.status( HTTP_CODE.INTERNAL_SERVER_ERROR ).json({ 
             message: error.message, 
             status: HTTP_CODE.INTERNAL_SERVER_ERROR 
         })
-    } finally {
-        next()
-    }
+    } 
 }
 
 export default validateNotRepitRol
