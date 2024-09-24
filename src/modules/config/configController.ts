@@ -1,9 +1,9 @@
-import { ResponseT, ResquestT } from "../../interfaces/main"
+import { Controller } from "../../interfaces/main"
 
-const RolService = require('../rol/rolService') 
+import RolService from '../rol/rolService' 
 const rolService = new RolService()
 
-const init = ( req: ResquestT, res: ResponseT ): ResponseT  => {
+const init: Controller = async ( req, res )  => {
     let message:string = 'OK', status:number = 200
 
     try {

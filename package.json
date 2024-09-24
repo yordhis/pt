@@ -8,7 +8,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "dev": "ts-node ./src/main.ts",
+    "dev": "nodemon ./src/main.ts",
     "start": "ts-node ./src/main.ts",
     "tsc": "tsc",
     "tsc:init": "tsc --init",
