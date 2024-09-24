@@ -1,17 +1,26 @@
-const ThemeService = require('../../theme/themeService')
+import HTTP_CODE from "../../../constants/code.const"
+import { Midd } from "../../../interfaces/main"
+
+import ThemeService from '../../theme/themeService'
 const themeService = new ThemeService()
 
-const validateThemeExists = async ( req, res, next ) => {
+const validateThemeExists: Midd = async ( req, res, next ) => {
     try {
         const { theme } = req.body
         
         const themeExists = await themeService.filterByName( theme )
-        if( !themeExists ) return res.status(400).json({ message: 'La temática no existe, intente con otra.', status: 400 })
+        if( !themeExists ) return res.status(HTTP_CODE.BAD_REQUEST).json({ 
+            message: 'La temática no existe, intente con otra.', 
+            status: HTTP_CODE.BAD_REQUEST 
+        })
         next()
         
-    } catch (error) {
-        res.status(500).json({ message: 'Midd Theme exist. error' + error.message, status: 500 })
+    } catch (error: any) {
+        return res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({ 
+            message: 'Midd Theme exist. error' + error.message, 
+            status: HTTP_CODE.INTERNAL_SERVER_ERROR 
+        })
     }
 }
 
-module.exports = validateThemeExists
+export default validateThemeExists

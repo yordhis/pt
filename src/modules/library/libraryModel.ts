@@ -1,16 +1,29 @@
-import mongoose from 'mongoose'
-const Schema = mongoose.Schema
+import { getModelForClass, prop } from "@typegoose/typegoose"
 
-const LibrarySchema = new Schema({
-    theme: String,
-    title: String,
-    description: String,
-    links: Object,
-    views: Number,
-    author: String,
-    credit: String
-})
 
-const Library = mongoose.model('Library', LibrarySchema)
+class LibraryModel {
+    @prop()
+    theme: string
+    
+    @prop()
+    title: string
+    
+    @prop()
+    description: string
+    
+    @prop()
+    links: object
+    
+    @prop({default:0})
+    views: number
+    
+    @prop()
+    author: string
+
+    @prop()
+    credit: string
+}
+
+const Library = getModelForClass(LibraryModel)
 
 export default Library

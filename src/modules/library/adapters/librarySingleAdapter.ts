@@ -1,8 +1,9 @@
-import { User } from '../../auth/interfaces/User.interface'
-import LibraryInterface from '../interfaces/Library.interface'
+import { UserAdapter } from '../../auth/interfaces/User.interface'
+import { LibraryInterface } from '../interfaces/Library.interface'
+import { LibraryAdapterType } from '../types/Library.type'
 import btnAdapter from './btnAdapter'
 
-const librarySingleAdapter = async ( data: LibraryInterface, user: User ) => {
+const librarySingleAdapter = async ( data: LibraryInterface, user: UserAdapter ): Promise<LibraryAdapterType> => {
   const buttons = await btnAdapter( data, user )
   if( !data ) return null
   return {
@@ -18,4 +19,4 @@ const librarySingleAdapter = async ( data: LibraryInterface, user: User ) => {
   }
 }
 
-module.exports = librarySingleAdapter
+export default librarySingleAdapter

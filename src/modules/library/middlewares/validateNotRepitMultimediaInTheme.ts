@@ -1,22 +1,29 @@
-const LibraryService = require('../libraryService')
+import HTTP_CODE from "../../../constants/code.const"
+import { Midd } from "../../../interfaces/main"
 
-const validateNotRepitMultimediaInTheme = async ( req, res , next ) => {
+import LibraryService from '../libraryService'
+const libraryService = new LibraryService()
+
+const validateNotRepitMultimediaInTheme: Midd = async ( req, res , next ) => {
     try {
         const { title, theme } = req.body
-        const libraryService = new LibraryService(req.user)
-
+    
         const existsInTheme = await libraryService.filterByTitleAndByTheme( title, theme )
-        console.log(existsInTheme)
-        
+    
         if( existsInTheme ){
-            console.log(existsInTheme.theme)
-            if( existsInTheme.theme.includes(theme) ) return res.status(400).json({ message:'El titulo del multimedia ya existe en esta temática.', status:400 })
+            if( existsInTheme.theme.includes(theme) ) return res.status(HTTP_CODE.BAD_REQUEST).json({ 
+                message:'El titulo del multimedia ya existe en esta temática.', 
+                status:HTTP_CODE.BAD_REQUEST 
+            })
         }
 
         next()
-    } catch (error) {
-        res.status(500).json({ message: 'Midd Not repit. Error: ' + error.message, status: 500 })
+    } catch (error: any) {
+        return res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({ 
+            message: 'Midd Not repit. Error: ' + error.message, 
+            status: HTTP_CODE.INTERNAL_SERVER_ERROR 
+        })
     }
 }
 
-module.exports = validateNotRepitMultimediaInTheme
+export default validateNotRepitMultimediaInTheme

@@ -1,41 +1,42 @@
 import Library from './libraryModel'
-import { User } from '../auth/interfaces/User.interface'
-import LibraryInterface from './interfaces/Library.interface'
+import {LibraryInterface} from './interfaces/Library.interface'
+import { LibrariesType, LibraryType } from './types/Library.type'
 
 class LibraryService {
 
-    async register( data: LibraryInterface ){
+    async register( data: LibraryInterface ): Promise<LibraryType>{
         const library = new Library( data )
         return await library.save()
     }
 
-    async all(){
+    async all(): Promise<LibrariesType>{
         return await Library.find({}) 
     }
 
-    async filterById( id: string ){
+    async filterById( id: string ): Promise<LibraryType>{
         return await Library.findOne({ _id: id })
     }
     
-    async filterByIdTheme( idTheme: string ){
+    async filterByIdTheme( idTheme: string ): Promise<LibrariesType>{
         return await Library.find({ idTheme })
     }
 
-    async filterByTitle( title: string ){
+    async filterByTitle( title: string ): Promise<LibraryType>{
         return await Library.findOne({ title })
       
     }
 
-    async filterByTitleAndByTheme( title: string, theme: string ){
+    async filterByTitleAndByTheme( title: string, theme: string ): Promise<LibraryType>{
         return await Library.findOne({ title, theme })
     }
     
-    async update( id: string, data: LibraryInterface ){
+    async update( id: string, data: LibraryInterface ): Promise<LibraryType>{
         return await Library.findByIdAndUpdate({ _id: id }, data )
     }
 
-    async destroy( id: string ){
-        return await Library.deleteOne({ _id: id })
+    async destroy( id: string ): Promise<boolean>{
+        const result =  await Library.deleteOne({ _id: id })
+        return result ? true : false
     }
 }
 

@@ -1,13 +1,24 @@
-import { BtnAction } from "../types/btn.type"
+import { BtnLibraryType } from "../types/btn.type"
 
-export default interface LibraryInterface {
-    _id?: {}
+export interface LibraryInterface {
+    _id?: string | object
     theme: string 
     title: string
     description: string
     links: {}
+    views?: number
+    author: string
+    credit: string
+} 
+
+export interface LibraryAdapterInterface {
+    id?: {}
+    theme: string 
+    title: string
+    description: string
+    links: object | null
     author: string
     credit: string
     views?: number
-    buttons?: BtnAction | null
-} 
+    buttons?: BtnLibraryType | null
+}

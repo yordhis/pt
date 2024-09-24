@@ -22,4 +22,4 @@ router.post('/', [ middTheme, validateNotRepitMultimediaInTheme ], register)
 router.put('/:id', middTheme, update)
 router.delete('/:id', destroy)
 
-module.exports = router
+export default router
