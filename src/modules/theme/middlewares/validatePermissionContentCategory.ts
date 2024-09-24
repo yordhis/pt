@@ -1,7 +1,9 @@
-const ContentCategoryService = require('../../contentCategory/contentCategoryService')
+import HTTP_CODE from '../../../constants/code.const'
+import { Midd } from '../../../interfaces/main'
+import ContentCategoryService from '../../contentCategory/contentCategoryService'
 const contentCategoryService = new ContentCategoryService()
 
-const validatePermissionContentCategory = async ( req, res ,next ) => {
+const validatePermissionContentCategory: Midd = async ( req, res ,next ) => {
     try {
         const { contentPermission } = req.body
         let capture = []
@@ -12,17 +14,24 @@ const validatePermissionContentCategory = async ( req, res ,next ) => {
                 capture.push(namePermission)
             }
         }
+
         if(capture.length){
-            return res.status(401).json({ message: `El permiso <${ capture.join() }> asignado, no está registrado en el sistema.`, status: 401 })
-        }else{
-            next()
+            return res.status(HTTP_CODE.BAD_REQUEST).json({ 
+                message: `El permiso <${ capture.join() }> asignado, no está registrado en el sistema.`, 
+                status: HTTP_CODE.BAD_REQUEST 
+            })
         }
         
-    } catch (error) {
-        return res.status(500).json({ message: error.message, status: 500 })
+        next()
+        
+    } catch (error: any) {
+        return res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({ 
+            message: error.message, 
+            status: HTTP_CODE.INTERNAL_SERVER_ERROR
+        })
     }
 
 
 }
 
-module.exports = validatePermissionContentCategory
+export default validatePermissionContentCategory

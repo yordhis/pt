@@ -1,13 +1,19 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import { getModelForClass, prop } from "@typegoose/typegoose"
 
-const ThemeSchema = new Schema({
-    name: String,
-    image: String,
-    contentPermission: Array,
-    status: Number
-})
+class ThemeModel{
+    @prop()
+    name: string
+    
+    @prop()
+    image: string
+    
+    @prop({ type: ()=> [String] })
+    contentPermission: string[]
+    
+    @prop({ type: Number, default: 1 })
+    status: number
+}
 
-const Theme = mongoose.model('Theme', ThemeSchema)
+const Theme = getModelForClass(ThemeModel)
 
-module.exports = Theme
+export default Theme

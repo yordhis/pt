@@ -1,8 +1,8 @@
-const express = require('express')
-const { all, filterById, register, update, destroy } = require('./themeController')
-const validateNameTheme = require('./middlewares/validateNameTheme')
-const validateUpdateNameTheme = require('./middlewares/validateUpdateNameTheme')
-const validatePermissionContentCategory = require('./middlewares/validatePermissionContentCategory')
+import express from 'express'
+import { all, filterById, register, update, destroy } from './themeController'
+import validateNameTheme from './middlewares/validateNameTheme'
+import validateUpdateNameTheme from './middlewares/validateUpdateNameTheme'
+import validatePermissionContentCategory from './middlewares/validatePermissionContentCategory'
 const router = express.Router()
 
 
@@ -13,4 +13,4 @@ router.post( '/', [ validateNameTheme, validatePermissionContentCategory ], regi
 router.put( '/:id', [ validateUpdateNameTheme, validatePermissionContentCategory ], update )
 router.delete( '/:id', destroy )
 
-module.exports = router
+export default router
