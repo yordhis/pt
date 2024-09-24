@@ -28,17 +28,31 @@ const verifyToken: Midd = async (req, res, next) => {
     } else {
       const token = authorization.split(" ")[1]
       const tokenVerify = verify(token, process.env.JWT_SECRET_KEY ?? "")
-      console.log(tokenVerify)
+      if(typeof(tokenVerify) != 'string'){
+        payload.id = tokenVerify.id
+        payload.username = tokenVerify.username
+        payload.email = tokenVerify.email
+        payload.rol = tokenVerify.rol
+        payload.modules = tokenVerify.modules
+        payload.permissions = tokenVerify.permissions
+        payload.profile = tokenVerify.profile
 
-      req.user = payload
+        req.user = payload
+      }else{
+        return res.status(HTTP_CODE.UNAUTHORIZE).json({
+          message: "Not data user",
+          status: HTTP_CODE.UNAUTHORIZE,
+        })
+      }
+
     }
-  } catch (error: any) {
-    res.status(HTTP_CODE.UNAUTHORIZE).json({
-      message: "file:verifyToken... Error: " + error.message,
-      status: HTTP_CODE.UNAUTHORIZE,
-    })
-  } finally {
+
     next()
+  } catch (error: any) {
+    return res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({
+      message: "file:verifyToken... Error: " + error.message,
+      status: HTTP_CODE.INTERNAL_SERVER_ERROR,
+    })
   }
 }
 

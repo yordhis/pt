@@ -9,13 +9,13 @@ const veirifyPermissionOfRequestUser: Midd = async (req, res, next) => {
     const pathname: string = req.baseUrl.split("/")[2]
     const method: string = req.method
 
-    const allRols = await rolService.all()
-
-    for (const rol of allRols) {
+    
+  
       if (typeof user != "undefined") {
-        if (user.rol == rol.name) {
+        const userRol = await rolService.filterByName(user.rol)
+        if (userRol) {
           if(pathname){
-            if (!rol.modules.includes(pathname))
+            if (!userRol.modules.includes(pathname))
               return res.status(HTTP_CODE.UNAUTHORIZE).json({
                 message: "Acceso denegado a este módulo.",
                 status: HTTP_CODE.UNAUTHORIZE,
@@ -28,32 +28,32 @@ const veirifyPermissionOfRequestUser: Midd = async (req, res, next) => {
            */
           if (pathname == "profiles") return next()
 
-          if (!rol.permissions.includes(method))
+          if (!userRol.permissions.includes(method)){
             return res.status(HTTP_CODE.UNAUTHORIZE).json({
               message: "Acción denegada, no tiene permisos para ejecutar esta solicitud.",
               status: HTTP_CODE.UNAUTHORIZE,
             })
+          }
         } else {
-          res.status(HTTP_CODE.UNAUTHORIZE).json({
+          return res.status(HTTP_CODE.UNAUTHORIZE).json({
             message: "Acceso denegado, el rol que poseé no existe.",
             status: HTTP_CODE.UNAUTHORIZE,
           })
         }
       } else {
-        res.status(HTTP_CODE.UNAUTHORIZE).json({
+        return res.status(HTTP_CODE.UNAUTHORIZE).json({
           message: "Usuario no definido.",
           status: HTTP_CODE.UNAUTHORIZE,
         })
       }
-    }
+    
+    next()
   } catch (error: any) {
-    res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({
+   return res.status(HTTP_CODE.INTERNAL_SERVER_ERROR).json({
       message: "file:verifyPermission... error: " + error.message,
       status: HTTP_CODE.INTERNAL_SERVER_ERROR,
     })
-  } finally {
-    next()
-  }
+  } 
 }
 
 export default veirifyPermissionOfRequestUser
