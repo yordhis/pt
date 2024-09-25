@@ -6,7 +6,7 @@ import validatePermissionsOfContent from './middlewares/validatePermissionsOfCon
 import validateNotRepitMultimediaInTheme from './middlewares/validateNotRepitMultimediaInTheme'
 const router = express.Router()
 
-const middTheme = [
+const middTheme: any = [
     validateThemeExists,
     validateThemeIsActive,
     validatePermissionsOfContent

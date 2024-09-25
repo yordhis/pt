@@ -8,7 +8,10 @@ const libraryAdapter = async (datas:LibraryInterface[], user: UserAdapter): Prom
   let dataAdapter = []
   
   for (const data of datas) {
-    dataAdapter.push( await librarySingleAdapter(data, user) )
+    let library = await librarySingleAdapter(data, user)
+    if(library){
+      dataAdapter.push( library )
+    }
   }
   if(dataAdapter){
     return dataAdapter
