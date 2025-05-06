@@ -11,8 +11,8 @@ class LibraryModel {
     @prop()
     description: string
     
-    @prop()
-    links: object
+    @prop({type: String })
+    links: string
     
     @prop({default:0})
     views: number
